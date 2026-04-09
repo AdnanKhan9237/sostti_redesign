@@ -1,0 +1,704 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SOSTTI — SOS Technical Training Institute, Karachi</title>
+  <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+
+  <meta name="description"
+    content="SOSTTI — NAVTTC Grade-A accredited technical and vocational training in Karachi. 14+ courses, 900+ graduates, free government-sponsored programs available.">
+  <meta name="keywords" content="technical training Karachi, NAVTTC courses, vocational education Pakistan, SOSTTI">
+  <meta name="robots" content="index, follow">
+  <meta name="theme-color" content="#0d1b2a">
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="SOSTTI — SOS Technical Training Institute">
+  <meta property="og:description"
+    content="NAVTTC Grade-A accredited technical education in Karachi. Government-sponsored free programs available.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://sostti.org/">
+  <meta property="og:image" content="images/sos-logo.png">
+  <link rel="canonical" href="https://sostti.org/">
+
+  <!-- Preconnects -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+
+  <!-- Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <!-- Main CSS -->
+  <link rel="stylesheet" href="assets/style.css">
+
+  <script>
+    // Prevent FOUC
+    (function () { var s = localStorage.getItem('sostti-theme'); if (s === 'dark' || (!s && window.matchMedia('(prefers-color-scheme:dark)').matches)) document.documentElement.setAttribute('data-theme', 'dark'); })();
+  </script>
+</head>
+
+<body>
+
+  <!-- Header -->
+  <div id="header-container"></div>
+
+  <!-- ══ HERO ══════════════════════════════════════════════ -->
+  <section class="hero" id="home" aria-label="Hero">
+    <div class="hero-grid-bg" aria-hidden="true"></div>
+    <div class="container">
+      <div class="hero-inner">
+
+        <!-- Left: Content -->
+        <div class="hero-content">
+          <div class="hero-badge">
+            <i class="fas fa-award"></i>
+            NAVTTC Accredited &middot; Grade A &middot; 92.5%
+          </div>
+
+          <h1>
+            <span class="highlight">SOS Technical</span><br>
+            Training Institute
+          </h1>
+
+          <div class="hero-typing" aria-live="polite">
+            <span id="typing-text"></span><span class="typing-cursor" aria-hidden="true"></span>
+          </div>
+
+          <p class="hero-desc">
+            Providing high-quality, government-recognized technical education to empower
+            individuals and communities across Karachi since 2012.
+          </p>
+
+          <div class="hero-btns">
+            <a class="btn-primary"
+              href="https://docs.google.com/forms/d/e/1FAIpQLSdnJItkIMyt3SGNaDeTBDcMTBKNeKJ4lC8cx3wxSOvjpciX4g/viewform?usp=header"
+              target="_blank" rel="noopener">
+              <i class="fas fa-pen-to-square"></i> Apply Now — Free
+            </a>
+            <a class="btn-outline" href="pages/digital-library.html">
+              <i class="fas fa-book-open"></i> Digital Library
+            </a>
+            <a class="btn-outline" href="pages/donate.html">
+              <i class="fas fa-heart"></i> Donate
+            </a>
+          </div>
+
+          <div class="hero-stats" aria-label="Key statistics">
+            <div class="hero-stat">
+              <span class="hero-stat-num">92.5%</span>
+              <span class="hero-stat-lbl">NAVTTC Score</span>
+            </div>
+            <div class="hero-stat">
+              <span class="hero-stat-num">14+</span>
+              <span class="hero-stat-lbl">Courses</span>
+            </div>
+            <div class="hero-stat">
+              <span class="hero-stat-num">900+</span>
+              <span class="hero-stat-lbl">Graduates</span>
+            </div>
+            <div class="hero-stat">
+              <span class="hero-stat-num">2012</span>
+              <span class="hero-stat-lbl">Established</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Right: Visual -->
+        <div class="hero-visual">
+          <div class="hero-cert-card reveal">
+            <img src="images/accr-01.jpg" alt="NAVTTC Grade A Accreditation Certificate" loading="eager">
+            <div class="hero-cert-info">
+              <span><i class="fas fa-certificate" style="color:var(--sapphire);margin-right:6px;"></i>NAVTTC
+                Accreditation</span>
+              <span class="grade-pill">Grade A</span>
+            </div>
+          </div>
+          <div class="trust-mini reveal">
+            <span>Recognised by</span>
+            <div class="trust-mini-logos">
+              <img src="images/navttc.png" alt="NAVTTC" loading="lazy" height="28">
+              <img src="images/sbte.png" alt="SBTE" loading="lazy" height="28">
+              <img src="images/stevta.png" alt="STEVTA" loading="lazy" height="28">
+              <!-- <img src="images/city-guilds.png" alt="City &amp; Guilds" loading="lazy" height="24"> -->
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ ACCREDITATION ═════════════════════════════════════ -->
+  <section class="accred" id="about" aria-labelledby="accred-heading">
+    <div class="container">
+      <div class="accred-inner">
+
+        <div class="accred-text reveal">
+          <span class="eyebrow"><i class="fas fa-certificate"></i> NAVTTC Certified</span>
+          <div class="accred-badge-row">
+            <div class="grade-badge-big">A</div>
+            <div class="grade-label">
+              <strong>Grade A</strong><br>
+              Overall Score: 92.5%
+            </div>
+          </div>
+          <h2 id="accred-heading">Accreditation<br>with NAVTTC</h2>
+          <p>SOSTTI is accredited by <strong>NAVTTC</strong> (National Vocational and Technical Training Commission),
+            ensuring our programs meet the highest national standards in technical and vocational education.</p>
+          <p>Our courses are <strong>nationally and internationally recognized</strong>, reflecting our commitment to
+            skill-based, career-focused education that empowers graduates for real-world employment.</p>
+          <button class="btn-cert" data-certificate="images/accr-01.jpg">
+            <i class="fas fa-file-certificate"></i> View Accreditation Certificate
+          </button>
+        </div>
+
+        <div class="accred-img reveal">
+          <img src="images/accr-01.jpg" alt="NAVTTC Accreditation Certificate — Grade A" loading="lazy">
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ REGISTRATION ══════════════════════════════════════ -->
+  <section style="background:var(--bg);padding:80px 0;" aria-labelledby="reg-heading">
+    <div class="container">
+      <div class="accred-inner accred-inner--reverse">
+        <div class="accred-img reveal">
+          <img src="images/registration-certificate.jpg" alt="NAVTTC Registration Certificate" loading="lazy">
+        </div>
+        <div class="accred-text reveal">
+          <span class="eyebrow"><i class="fas fa-building-columns"></i> NAVTTC Registered</span>
+          <h2 id="reg-heading">Registration<br>with NAVTTC</h2>
+          <p>SOSTTI is <strong>registered with NAVTTC</strong> (National Vocational and Technical Training Commission),
+            Government of Pakistan — certifying we meet all legal national standards for TVET.</p>
+          <p>Being a registered institution ensures students receive <strong>nationally and internationally recognized
+              qualifications</strong>, opening doors to better employment locally and abroad.</p>
+          <button class="btn-cert" data-certificate="images/registration-certificate.jpg">
+            <i class="fas fa-file-certificate"></i> View Registration Certificate
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ GOVERNMENT PROGRAMS ═══════════════════════════════ -->
+  <section class="gov-programs" id="gov-programs" aria-labelledby="govprog-heading">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow"><i class="fas fa-landmark"></i> Sponsored Programs</span>
+        <h2 id="govprog-heading">Government Sponsored Training</h2>
+        <p>Free, government-funded technical courses with limited seats — register early to secure your place.</p>
+      </div>
+
+      <div class="program-blocks">
+
+        <!-- NAVTTC -->
+        <div class="prog-block reveal">
+          <div class="prog-block-head">
+            <div>
+              <h3>NAVTTC Programs</h3>
+              <p>Prime Minister's Kamyab Jawan Initiative — Skills for All (Federal Govt. of Pakistan)</p>
+            </div>
+            <div class="prog-badge"><i class="fas fa-flag" style="margin-right:5px;"></i>Federal</div>
+          </div>
+          <table class="prog-table" aria-label="NAVTTC courses">
+            <thead>
+              <tr>
+                <th>Course Name</th>
+                <th>Duration</th>
+                <th>Days/Week</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <div class="crs-name"><i class="fas fa-car"></i>High Tech Automotive Technician</div>
+                </td>
+                <td><span class="d-badge">6 Months</span></td>
+                <td><span class="w-badge">6 Days</span></td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="crs-name"><i class="fas fa-snowflake"></i>Heating, Ventilation, AC &amp; Refrigeration
+                  </div>
+                </td>
+                <td><span class="d-badge">6 Months</span></td>
+                <td><span class="w-badge">6 Days</span></td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="crs-name"><i class="fas fa-fire-flame-curved"></i>Advance Welding</div>
+                </td>
+                <td><span class="d-badge">6 Months</span></td>
+                <td><span class="w-badge">6 Days</span></td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="crs-name"><i class="fas fa-bolt"></i>General Electrician</div>
+                </td>
+                <td><span class="d-badge">6 Months</span></td>
+                <td><span class="w-badge">6 Days</span></td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="crs-name"><i class="fas fa-mobile-alt"></i>Mobile Phone Repairing</div>
+                </td>
+                <td><span class="d-badge">3 Months</span></td>
+                <td><span class="w-badge">6 Days</span></td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="note-box"><i class="fas fa-info-circle"></i><span><strong>Note:</strong> Limited seats. Early
+              registration is strongly recommended.</span></div>
+        </div>
+
+        <!-- BBSHRRDB -->
+        <div class="prog-block reveal">
+          <div class="prog-block-head" style="background:#0c2a1c;">
+            <div>
+              <h3>BBSHRRDB Programs</h3>
+              <p>Benazir Bhutto Shaheed Human Resource Research &amp; Development Board (Sindh Govt.)</p>
+            </div>
+            <div class="prog-badge" style="background:rgba(16,185,129,.2);color:#34d399;"><i class="fas fa-landmark"
+                style="margin-right:5px;"></i>Sindh</div>
+          </div>
+          <table class="prog-table" aria-label="BBSHRRDB courses">
+            <thead>
+              <tr>
+                <th>Course Name</th>
+                <th>Duration</th>
+                <th>Days/Week</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  <div class="crs-name"><i class="fas fa-laptop-code"></i>Computer / IT Assistant</div>
+                </td>
+                <td><span class="d-badge">5 Months</span></td>
+                <td><span class="w-badge">6 Days</span></td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="crs-name"><i class="fas fa-palette"></i>Computer Graphic &amp; Video Editing</div>
+                </td>
+                <td><span class="d-badge">6 Months</span></td>
+                <td><span class="w-badge">6 Days</span></td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="crs-name"><i class="fas fa-car-wrench"></i>Automobile Technology</div>
+                </td>
+                <td><span class="d-badge">5 Months</span></td>
+                <td><span class="w-badge">6 Days</span></td>
+              </tr>
+              <tr>
+                <td>
+                  <div class="crs-name"><i class="fas fa-fire"></i>Welder</div>
+                </td>
+                <td><span class="d-badge">7 Months</span></td>
+                <td><span class="w-badge">6 Days</span></td>
+              </tr>
+            </tbody>
+          </table>
+          <div class="note-box"><i class="fas fa-info-circle"></i><span><strong>Note:</strong> Requires CNIC and Sindh
+              domicile. Limited seats.</span></div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ PROGRAMS ══════════════════════════════════════════ -->
+  <section class="programs" id="programs" aria-labelledby="programs-heading">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow"><i class="fas fa-graduation-cap"></i> What We Offer</span>
+        <h2 id="programs-heading">Our Programs</h2>
+        <p>Industry-aligned courses designed to build real, employable skills for the modern workforce.</p>
+      </div>
+
+      <div class="filter-bar" role="group" aria-label="Filter courses">
+        <button class="filter-btn active" data-filter="all">All Courses</button>
+        <button class="filter-btn" data-filter="computer">Computer &amp; IT</button>
+        <button class="filter-btn" data-filter="technical">Technical</button>
+        <button class="filter-btn" data-filter="short">3-Month</button>
+        <button class="filter-btn" data-filter="long">6-Month</button>
+      </div>
+
+      <div class="courses-grid reveal-stagger" id="coursesGrid">
+
+        <!-- Computer Courses -->
+        <article class="course-card reveal" data-category="computer long">
+          <div class="course-img">
+            <span class="duration-badge">6 Months</span>
+            <img src="images/computer-operator.png" alt="Computer Operator Course" loading="lazy">
+          </div>
+          <div class="course-body">
+            <h3>Computer Operator</h3>
+            <p>Employment as a computer operator is projected to grow rapidly because of advancement in technology and
+              increasing requirements of businesses.</p>
+            <div class="course-actions">
+              <a href="pages/courses/computer-course.html" class="btn-det"><i class="fas fa-info-circle"></i>
+                Details</a>
+              <a href="https://docs.google.com/forms/d/e/1FAIpQLSdnJItkIMyt3SGNaDeTBDcMTBKNeKJ4lC8cx3wxSOvjpciX4g/viewform"
+                class="btn-apply" target="_blank" rel="noopener"><i class="fas fa-edit"></i> Apply</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="course-card reveal" data-category="computer long">
+          <div class="course-img">
+            <span class="duration-badge">6 Months</span>
+            <img src="images/graphics-designing.jpg" alt="Graphics Designing" loading="lazy">
+          </div>
+          <div class="course-body">
+            <h3>Graphics Designing</h3>
+            <p>Develop professional design skills through concepts and hands-on work with industry-standard software
+              tools.</p>
+            <div class="course-actions">
+              <a href="pages/courses/graphic-designing.html" class="btn-det"><i class="fas fa-info-circle"></i>
+                Details</a>
+              <a href="https://docs.google.com/forms/d/e/1FAIpQLSdnJItkIMyt3SGNaDeTBDcMTBKNeKJ4lC8cx3wxSOvjpciX4g/viewform"
+                class="btn-apply" target="_blank" rel="noopener"><i class="fas fa-edit"></i> Apply</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="course-card reveal" data-category="computer long">
+          <div class="course-img">
+            <span class="duration-badge">6 Months</span>
+            <img src="images/web-development.jpg" alt="Web Development" loading="lazy">
+          </div>
+          <div class="course-body">
+            <h3>Web Designing &amp; Development</h3>
+            <p>Prepares students for computer job trends and equips entrepreneurs with freelancing skills for
+              independent work.</p>
+            <div class="course-actions">
+              <a href="pages/courses/web-designing-development.html" class="btn-det"><i class="fas fa-info-circle"></i>
+                Details</a>
+              <a href="https://docs.google.com/forms/d/e/1FAIpQLSdnJItkIMyt3SGNaDeTBDcMTBKNeKJ4lC8cx3wxSOvjpciX4g/viewform"
+                class="btn-apply" target="_blank" rel="noopener"><i class="fas fa-edit"></i> Apply</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="course-card reveal" data-category="computer long">
+          <div class="course-img">
+            <span class="duration-badge">6 Months</span>
+            <img src="images/digital-marketing.png" alt="Digital Marketing" loading="lazy">
+          </div>
+          <div class="course-body">
+            <h3>Digital Marketing</h3>
+            <p>Master SEO, Social Media Marketing, and Content Strategy to help businesses grow in the digital
+              landscape.</p>
+            <div class="course-actions">
+              <a href="pages/courses/digital-marketing.html" class="btn-det"><i class="fas fa-info-circle"></i>
+                Details</a>
+              <a href="https://docs.google.com/forms/d/e/1FAIpQLSdnJItkIMyt3SGNaDeTBDcMTBKNeKJ4lC8cx3wxSOvjpciX4g/viewform"
+                class="btn-apply" target="_blank" rel="noopener"><i class="fas fa-edit"></i> Apply</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="course-card reveal" data-category="computer long">
+          <div class="course-img">
+            <span class="duration-badge">6 Months</span>
+            <img src="images/artificial-intelligence.jpg" alt="Artificial Intelligence" loading="lazy">
+          </div>
+          <div class="course-body">
+            <h3>Artificial Intelligence</h3>
+            <p>Explore machine learning, neural networks, and AI ethics — preparing you for the future of tech.</p>
+            <div class="course-actions">
+              <a href="pages/courses/ArtificialIntelligence.html" class="btn-det"><i class="fas fa-info-circle"></i>
+                Details</a>
+              <a href="https://docs.google.com/forms/d/e/1FAIpQLSdnJItkIMyt3SGNaDeTBDcMTBKNeKJ4lC8cx3wxSOvjpciX4g/viewform"
+                class="btn-apply" target="_blank" rel="noopener"><i class="fas fa-edit"></i> Apply</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="course-card reveal" data-category="computer long">
+          <div class="course-img">
+            <span class="duration-badge">6 Months</span>
+            <img src="images/cyber-security.jpg" alt="Cyber Security" loading="lazy">
+          </div>
+          <div class="course-body">
+            <h3>Cyber Security</h3>
+            <p>Learn to protect networks, systems, and data from digital attacks in our hands-on security lab.</p>
+            <div class="course-actions">
+              <a href="pages/courses/CyberSecurity.html" class="btn-det"><i class="fas fa-info-circle"></i>
+                Details</a>
+              <a href="https://docs.google.com/forms/d/e/1FAIpQLSdnJItkIMyt3SGNaDeTBDcMTBKNeKJ4lC8cx3wxSOvjpciX4g/viewform"
+                class="btn-apply" target="_blank" rel="noopener"><i class="fas fa-edit"></i> Apply</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="course-card reveal" data-category="short">
+          <div class="course-img">
+            <span class="duration-badge">3 Months</span>
+            <img src="images/english-language.jpg" alt="English Language" loading="lazy">
+          </div>
+          <div class="course-body">
+            <h3>English Language</h3>
+            <p>Develops essential verbal and written English communication skills for workplace confidence. Open to all.
+            </p>
+            <div class="course-actions">
+              <a href="pages/courses/EnglishLanguage.html" class="btn-det"><i class="fas fa-info-circle"></i>
+                Details</a>
+              <a href="https://docs.google.com/forms/d/e/1FAIpQLSdnJItkIMyt3SGNaDeTBDcMTBKNeKJ4lC8cx3wxSOvjpciX4g/viewform"
+                class="btn-apply" target="_blank" rel="noopener"><i class="fas fa-edit"></i> Apply</a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Technical Courses -->
+        <article class="course-card reveal" data-category="technical long">
+          <div class="course-img">
+            <span class="duration-badge">6 Months</span>
+            <img src="images/automobile-mechanic.jpg" alt="Automobile Mechanic" loading="lazy">
+          </div>
+          <div class="course-body">
+            <h3>Automobile Mechanic / Electrician</h3>
+            <p>Trains students in diagnosing, repairing, and maintaining automobile engines, electrical systems, and
+              components.</p>
+            <div class="course-actions">
+              <a href="pages/courses/automobile-mechanic-electrician.html" class="btn-det"><i
+                  class="fas fa-info-circle"></i> Details</a>
+              <a href="https://docs.google.com/forms/d/e/1FAIpQLSdnJItkIMyt3SGNaDeTBDcMTBKNeKJ4lC8cx3wxSOvjpciX4g/viewform"
+                class="btn-apply" target="_blank" rel="noopener"><i class="fas fa-edit"></i> Apply</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="course-card reveal" data-category="technical long">
+          <div class="course-img">
+            <span class="duration-badge">6 Months</span>
+            <img src="images/hvacr.jpg" alt="HVACR" loading="lazy">
+          </div>
+          <div class="course-body">
+            <h3>HVACR</h3>
+            <p>Learn to diagnose, repair, and install refrigerators, deep freezers, and air-conditioners with practical
+              training.</p>
+            <div class="course-actions">
+              <a href="pages/courses/HVACR.html" class="btn-det"><i class="fas fa-info-circle"></i> Details</a>
+              <a href="https://docs.google.com/forms/d/e/1FAIpQLSdnJItkIMyt3SGNaDeTBDcMTBKNeKJ4lC8cx3wxSOvjpciX4g/viewform"
+                class="btn-apply" target="_blank" rel="noopener"><i class="fas fa-edit"></i> Apply</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="course-card reveal" data-category="technical long">
+          <div class="course-img">
+            <span class="duration-badge">6 Months</span>
+            <img src="images/welding.jpg" alt="Advance Welding" loading="lazy">
+          </div>
+          <div class="course-body">
+            <h3>Advance Welding</h3>
+            <p>Advanced training for complex welding tasks, preparing students for diverse employment locally and
+              internationally.</p>
+            <div class="course-actions">
+              <a href="pages/courses/AdvanceWelding.html" class="btn-det"><i class="fas fa-info-circle"></i> Details</a>
+              <a href="https://docs.google.com/forms/d/e/1FAIpQLSdnJItkIMyt3SGNaDeTBDcMTBKNeKJ4lC8cx3wxSOvjpciX4g/viewform"
+                class="btn-apply" target="_blank" rel="noopener"><i class="fas fa-edit"></i> Apply</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="course-card reveal" data-category="technical long">
+          <div class="course-img">
+            <span class="duration-badge">6 Months</span>
+            <img src="images/motorcycle-mechanic.jpg" alt="Motorcycle Mechanic" loading="lazy">
+          </div>
+          <div class="course-body">
+            <h3>Motorcycle Mechanic</h3>
+            <p>Trains students in maintenance, repair, and overhaul of motorcycles — enabling independent workshops or
+              professional careers.</p>
+            <div class="course-actions">
+              <a href="pages/courses/MotorcycleMechanic.html" class="btn-det"><i class="fas fa-info-circle"></i>
+                Details</a>
+              <a href="https://docs.google.com/forms/d/e/1FAIpQLSdnJItkIMyt3SGNaDeTBDcMTBKNeKJ4lC8cx3wxSOvjpciX4g/viewform"
+                class="btn-apply" target="_blank" rel="noopener"><i class="fas fa-edit"></i> Apply</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="course-card reveal" data-category="technical long">
+          <div class="course-img">
+            <span class="duration-badge">6 Months</span>
+            <img src="images/machinist.jpg" alt="Mechanical Turner" loading="lazy">
+          </div>
+          <div class="course-body">
+            <h3>Mechanical Turner</h3>
+            <p>Hands-on training using lathe, shaper, and milling machines for professional machining competence in
+              industry.</p>
+            <div class="course-actions">
+              <a href="pages/courses/MechanicalTurner.html" class="btn-det"><i class="fas fa-info-circle"></i>
+                Details</a>
+              <a href="https://docs.google.com/forms/d/e/1FAIpQLSdnJItkIMyt3SGNaDeTBDcMTBKNeKJ4lC8cx3wxSOvjpciX4g/viewform"
+                class="btn-apply" target="_blank" rel="noopener"><i class="fas fa-edit"></i> Apply</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="course-card reveal" data-category="technical long">
+          <div class="course-img">
+            <span class="duration-badge">6 Months</span>
+            <img src="images/electrical.jpg" alt="Electrician" loading="lazy">
+          </div>
+          <div class="course-body">
+            <h3>General / Industrial Electrician</h3>
+            <p>Domestic wiring and repair for homes; advanced electrical repair and motor control for industrial
+              factories.</p>
+            <div class="course-actions">
+              <a href="pages/courses/general-industrial-electrician.html" class="btn-det"><i
+                  class="fas fa-info-circle"></i> Details</a>
+              <a href="https://docs.google.com/forms/d/e/1FAIpQLSdnJItkIMyt3SGNaDeTBDcMTBKNeKJ4lC8cx3wxSOvjpciX4g/viewform"
+                class="btn-apply" target="_blank" rel="noopener"><i class="fas fa-edit"></i> Apply</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="course-card reveal" data-category="technical short">
+          <div class="course-img">
+            <span class="duration-badge">3 Months</span>
+            <img src="images/mobile-repairing.jpg" alt="Mobile Phone Repairing" loading="lazy">
+          </div>
+          <div class="course-body">
+            <h3>Mobile Phone Repairing</h3>
+            <p>Covers hardware, software, flashing, unlocking, and part replacement with hands-on practice.</p>
+            <div class="course-actions">
+              <a href="pages/courses/MobilePhoneRepairing.html" class="btn-det"><i class="fas fa-info-circle"></i>
+                Details</a>
+              <a href="https://docs.google.com/forms/d/e/1FAIpQLSdnJItkIMyt3SGNaDeTBDcMTBKNeKJ4lC8cx3wxSOvjpciX4g/viewform"
+                class="btn-apply" target="_blank" rel="noopener"><i class="fas fa-edit"></i> Apply</a>
+            </div>
+          </div>
+        </article>
+
+        <article class="course-card reveal" data-category="technical short">
+          <div class="course-img">
+            <span class="duration-badge">3 Months</span>
+            <img src="images/ups-solar.png" alt="UPS Solar PV Technician" loading="lazy">
+          </div>
+          <div class="course-body">
+            <h3>UPS Solar PV Technician</h3>
+            <p>Off-grid solar PV training with hands-on practice on the 12KW solar PV system installed at SOSTTI campus.
+            </p>
+            <div class="course-actions">
+              <a href="pages/courses/ups-solar-pv-technician.html" class="btn-det"><i class="fas fa-info-circle"></i>
+                Details</a>
+              <a href="https://docs.google.com/forms/d/e/1FAIpQLSdnJItkIMyt3SGNaDeTBDcMTBKNeKJ4lC8cx3wxSOvjpciX4g/viewform"
+                class="btn-apply" target="_blank" rel="noopener"><i class="fas fa-edit"></i> Apply</a>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ STATS ══════════════════════════════════════════════ -->
+  <section class="stats-bar" aria-labelledby="impact-heading">
+    <div class="container">
+      <div class="section-head reveal" style="margin-bottom:40px;">
+        <span class="eyebrow" style="background:rgba(77,158,255,.12);border-color:rgba(77,158,255,.2);">By the
+          Numbers</span>
+        <h2 id="impact-heading" style="color:#fff;">Our Impact</h2>
+      </div>
+      <div class="stats-grid">
+        <div class="stat-item reveal"><span class="stat-num">2012</span><span class="stat-lbl">Year Established</span>
+        </div>
+        <div class="stat-item reveal"><span class="stat-num">92.5%</span><span class="stat-lbl">NAVTTC Score</span>
+        </div>
+        <div class="stat-item reveal"><span class="stat-num">14+</span><span class="stat-lbl">Courses</span></div>
+        <div class="stat-item reveal"><span class="stat-num">900+</span><span class="stat-lbl">Graduates</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ TESTIMONIALS ══════════════════════════════════════ -->
+  <section class="testimonials" id="success" aria-labelledby="success-heading">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow"><i class="fas fa-star"></i> Graduate Stories</span>
+        <h2 id="success-heading">Success Stories</h2>
+        <p>How SOSTTI transforms the careers of our graduates across Karachi and beyond.</p>
+      </div>
+      <div class="testimonials-grid">
+        <div class="testimonial-card reveal">
+          <div class="testimonial-quote">Set up his own motorcycle repair workshop at Sherpao Colony in front of Chawal
+            Godawn, Karachi — after completing the Motorcycle Mechanic course.</div>
+          <div class="testimonial-name">Umer Hussain</div>
+          <div class="testimonial-role">Motorcycle Mechanic Graduate</div>
+        </div>
+        <div class="testimonial-card reveal">
+          <div class="testimonial-quote">Appointed in Shabbir Tiles (Pvt) Limited, Landhi, Karachi as a welder after
+            completing the NAVTTC Welding course.</div>
+          <div class="testimonial-name">Zubair Khan</div>
+          <div class="testimonial-role">Welding Graduate</div>
+        </div>
+        <div class="testimonial-card reveal">
+          <div class="testimonial-quote">Appointed in International Steel Limited as an apprentice for two years after
+            completing the High Tech Automotive Technician course.</div>
+          <div class="testimonial-name">Manzar</div>
+          <div class="testimonial-role">Automotive Technician Graduate</div>
+        </div>
+        <div class="testimonial-card reveal">
+          <div class="testimonial-quote">Now serving as Assistant Instructor — Automobile at SOS Technical Training
+            Institute after completing the NAVTTC Automotive course.</div>
+          <div class="testimonial-name">Abdul Majeed</div>
+          <div class="testimonial-role">Automotive Graduate &amp; Instructor</div>
+        </div>
+        <div class="testimonial-card reveal">
+          <div class="testimonial-quote">Established his own Motorcycle Repair Shop at New Muzaffarabad, Landhi, Karachi
+            after completing the Motorcycle Mechanic course.</div>
+          <div class="testimonial-name">Sher Afzal</div>
+          <div class="testimonial-role">Motorcycle Mechanic Graduate</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ══ VIDEO ══════════════════════════════════════════════ -->
+  <section class="video-section" aria-labelledby="video-heading">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="eyebrow"><i class="fas fa-play-circle"></i> Campus Tour</span>
+        <h2 id="video-heading">See Our Facilities</h2>
+        <p>Experience our state-of-the-art workshops, labs, and learning spaces.</p>
+      </div>
+      <div class="video-wrapper reveal" role="region" aria-label="Campus tour video player">
+        <video playsinline preload="metadata" aria-label="SOSTTI campus tour video">
+          <source src="videos/SOSVideo.mp4" type="video/mp4">
+          Your browser does not support video.
+        </video>
+        <div class="video-controls">
+          <button class="v-btn play" aria-label="Play/Pause"><i class="fas fa-play"></i></button>
+          <span class="v-time">0:00 / 0:00</span>
+          <div class="v-progress" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+            <div class="v-progress-fill"></div>
+          </div>
+          <button class="v-btn mute" aria-label="Mute/Unmute"><i class="fas fa-volume-up"></i></button>
+          <input type="range" class="v-volume-slider" min="0" max="1" step="0.05" value="1" aria-label="Volume">
+          <button class="v-btn fullscreen" aria-label="Fullscreen"><i class="fas fa-expand"></i></button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <div id="footer-container"></div>
+
+  <!-- Scripts -->
+  <script src="js/core.js"></script>
+  <script src="js/policy-dates.js"></script>
+  <script src="js/announcement-manager.js"></script>
+
+</body>
+
+</html>

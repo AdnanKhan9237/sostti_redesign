@@ -1,0 +1,270 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Digital Library — SOSTTI</title>
+  <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="../assets/style.css">
+  <style>
+    /* Library Specific Enhancements */
+    .library-search-wrap {
+      background: var(--surface);
+      border: 1px solid var(--bdr);
+      border-radius: var(--r-xl);
+      padding: 8px 12px 8px 24px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      box-shadow: var(--sh-md);
+      max-width: 800px;
+      margin: -40px auto 40px;
+      position: relative;
+      z-index: 10;
+      transition: var(--t);
+    }
+    .library-search-wrap:focus-within {
+      box-shadow: var(--sh-lg);
+      border-color: var(--sapphire);
+      transform: translateY(-2px);
+    }
+    .library-search-input {
+      flex: 1;
+      border: none;
+      background: none;
+      font-size: 1.05rem;
+      font-weight: 500;
+      color: var(--text);
+      outline: none;
+      padding: 12px 0;
+    }
+    .library-search-btn {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: var(--sapphire);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      transition: var(--t-fast);
+    }
+    .library-search-btn:hover {
+      background: var(--sapphire-dk);
+      transform: scale(1.05);
+    }
+
+    .filter-chips {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 48px;
+    }
+    .filter-chip {
+      padding: 8px 18px;
+      background: var(--surface);
+      border: 1.5px solid var(--bdr);
+      border-radius: var(--r-full);
+      font-size: .84rem;
+      font-weight: 700;
+      color: var(--text-2);
+      cursor: pointer;
+      transition: var(--t-fast);
+      white-space: nowrap;
+    }
+    .filter-chip:hover {
+      border-color: var(--sapphire);
+      color: var(--sapphire);
+      background: var(--sapphire-lt);
+    }
+    .filter-chip.active {
+      background: var(--sapphire);
+      border-color: var(--sapphire);
+      color: #fff;
+      box-shadow: 0 4px 12px var(--sapphire-gl);
+    }
+
+    .resource-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      gap: 24px;
+    }
+    .resource-card {
+      background: var(--surface);
+      border: 1px solid var(--bdr);
+      border-radius: var(--r-lg);
+      padding: 24px;
+      transition: var(--t);
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      box-shadow: var(--sh-sm);
+    }
+    .resource-card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--sh-lg);
+      border-color: var(--sapphire-gl);
+    }
+    .resource-icon {
+      width: 52px;
+      height: 52px;
+      border-radius: var(--r-md);
+      background: var(--sapphire-lt);
+      color: var(--sapphire);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+    }
+    .resource-info h3 {
+      font-size: 1.05rem;
+      margin-bottom: 6px;
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+      height: 2.6em;
+    }
+    .resource-tag {
+      font-size: .7rem;
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+      color: var(--text-3);
+      background: var(--bg-2);
+      padding: 3px 10px;
+      border-radius: var(--r-xs);
+      display: inline-block;
+      margin-bottom: 8px;
+    }
+    .resource-footer {
+      margin-top: auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .btn-download {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: .84rem;
+      font-weight: 700;
+      color: var(--sapphire);
+      transition: var(--t-fast);
+    }
+    .btn-download:hover {
+      gap: 12px;
+    }
+
+    #result-meta {
+      text-align: center;
+      font-size: .88rem;
+      color: var(--text-3);
+      margin-bottom: 24px;
+      font-weight: 600;
+    }
+
+    .no-results {
+      grid-column: 1 / -1;
+      text-align: center;
+      padding: 60px 0;
+    }
+    .no-results i {
+      font-size: 3rem;
+      color: var(--bdr);
+      margin-bottom: 16px;
+    }
+
+    @media (max-width: 768px) {
+      .library-search-wrap {
+        margin-top: -30px;
+        padding-left: 18px;
+      }
+      .filter-chips {
+        justify-content: flex-start;
+        overflow-x: auto;
+        padding-bottom: 8px;
+        flex-wrap: nowrap;
+        -webkit-overflow-scrolling: touch;
+      }
+      .filter-chip {
+        flex-shrink: 0;
+      }
+    }
+  </style>
+  <script>(function(){var s=localStorage.getItem("sostti-theme");if(s==="dark"||(!s&&window.matchMedia("(prefers-color-scheme:dark)").matches))document.documentElement.setAttribute("data-theme","dark");})();</script>
+</head>
+<body>
+  <div id="header-container"></div>
+
+  <section class="page-hero">
+    <div class="container">
+      <span class="eyebrow" style="background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.2);color:rgba(255,255,255,1);">
+        <i class="fas fa-book-open"></i> Open Knowledge
+      </span>
+      <h1>SOSTTI Digital Library</h1>
+      <p>Access 100+ free technical manuals, e-books, and educational resources curated for your skill development.</p>
+    </div>
+  </section>
+
+  <section class="content-section" style="padding-top: 0;">
+    <div class="container">
+      
+      <!-- Search Box -->
+      <div class="library-search-wrap reveal">
+        <i class="fas fa-search" style="color:var(--text-3);"></i>
+        <input type="text" id="library-search" class="library-search-input" placeholder="Search books e.g., Python, Welding, Solar, Electronics..." aria-label="Search resources">
+        <button id="library-search-btn" class="library-search-btn" aria-label="Submit search">
+          <i class="fas fa-arrow-right"></i>
+        </button>
+      </div>
+
+      <!-- Filters -->
+      <div class="filter-chips reveal">
+        <button class="filter-chip active" data-filter="all">All Resources</button>
+        <button class="filter-chip" data-filter="computer">Computer IT</button>
+        <button class="filter-chip" data-filter="web">Web Dev</button>
+        <button class="filter-chip" data-filter="graphics">Graphics</button>
+        <button class="filter-chip" data-filter="marketing">Digital Marketing</button>
+        <button class="filter-chip" data-filter="english">English</button>
+        <button class="filter-chip" data-filter="electrician">Electrician</button>
+        <button class="filter-chip" data-filter="solar">Solar PV</button>
+        <button class="filter-chip" data-filter="mobile">Mobile Repair</button>
+        <button class="filter-chip" data-filter="auto">Automobile</button>
+        <button class="filter-chip" data-filter="motorcycle">Motorcycle</button>
+        <button class="filter-chip" data-filter="machinist">Machinist</button>
+        <button class="filter-chip" data-filter="welding">Welding</button>
+        <button class="filter-chip" data-filter="hvacr">HVACR</button>
+      </div>
+
+      <div id="result-meta" class="reveal">Loading resources...</div>
+
+      <!-- Resource Grid -->
+      <div id="resource-container" class="resource-grid reveal">
+        <!-- Cards will be injected via digital-library.js -->
+        <div class="no-results">
+          <div class="preloader-spin" style="margin: 0 auto;"></div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <div id="footer-container"></div>
+
+  <!-- Scripts -->
+  <script src="../js/core.js"></script>
+  <!-- Load the data first -->
+  <script src="../js/resources-open-inline.js"></script>
+  <!-- Then the application logic -->
+  <script src="../js/digital-library.js"></script>
+</body>
+</html>
+</html>

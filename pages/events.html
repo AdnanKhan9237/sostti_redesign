@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Events — SOSTTI</title>
+  <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+  <meta name="description" content="Events and activities at SOS Technical Training Institute, Karachi.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <link rel="stylesheet" href="../assets/style.css">
+  <script>(function(){var s=localStorage.getItem('sostti-theme');if(s==='dark'||(!s&&window.matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark');})();</script>
+  <style>
+    .events-filter { display:flex; flex-wrap:wrap; gap:8px; justify-content:center; margin-bottom:36px; overflow-x:auto; -webkit-overflow-scrolling:touch; padding-bottom:4px; }
+    .ev-tag { padding:6px 16px; border:1.5px solid var(--bdr); border-radius:var(--r-full); background:var(--surface); font-size:.8rem; font-weight:700; color:var(--text-2); cursor:pointer; transition:var(--t-fast); white-space:nowrap; }
+    .ev-tag:hover, .ev-tag.active { background:var(--sapphire); color:#fff; border-color:var(--sapphire); }
+    .events-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(340px,1fr)); gap:28px; }
+    .event-card { background:var(--surface); border:1px solid var(--bdr); border-radius:var(--r-lg); overflow:hidden; box-shadow:var(--sh-sm); transition:var(--t); }
+    .event-card:hover { transform:translateY(-5px); box-shadow:var(--sh-lg); border-color:rgba(29,111,239,.25); }
+    .ev-gallery { display:grid; gap:2px; }
+    .ev-gallery.g1 img { height:220px; width:100%; object-fit:cover; }
+    .ev-gallery.g2 { grid-template-columns:1fr 1fr; }
+    .ev-gallery.g2 img { height:150px; width:100%; object-fit:cover; }
+    .ev-gallery.g3 { grid-template-columns:1fr 1fr; }
+    .ev-gallery.g3 img:first-child { grid-column:1/-1; height:160px; width:100%; object-fit:cover; }
+    .ev-gallery.g3 img:not(:first-child) { height:110px; width:100%; object-fit:cover; }
+    .ev-body { padding:20px; }
+    .ev-meta { display:flex; align-items:center; gap:10px; margin-bottom:8px; flex-wrap:wrap; }
+    .ev-date { font-size:.74rem; font-weight:700; color:var(--sapphire); letter-spacing:.05em; }
+    .ev-cat { padding:2px 9px; background:var(--sapphire-lt); color:var(--sapphire); border-radius:var(--r-full); font-size:.7rem; font-weight:800; }
+    .ev-body h3 { font-size:.98rem; font-weight:800; margin-bottom:7px; line-height:1.3; }
+    .ev-body p { font-size:.84rem; color:var(--text-2); line-height:1.6; }
+    @media(max-width:768px){
+      .events-grid{grid-template-columns:repeat(auto-fill,minmax(280px,1fr));}
+      .ev-gallery.g1 img{height:180px;}
+      .ev-gallery.g2 img{height:120px;}
+      .ev-gallery.g3 img:first-child{height:140px;}
+      .ev-gallery.g3 img:not(:first-child){height:90px;}
+      .ev-body{padding:16px;}
+    }
+    @media(max-width:576px){
+      .events-grid{grid-template-columns:1fr;}
+      .ev-gallery.g2{grid-template-columns:1fr;}
+      .ev-gallery.g2 img{height:160px;}
+      .ev-gallery.g3{grid-template-columns:1fr;}
+      .ev-gallery.g3 img:first-child{grid-column:auto;height:160px;}
+      .ev-gallery.g3 img:not(:first-child){height:120px;}
+      .ev-tag{padding:5px 12px;font-size:.76rem;}
+    }
+  </style>
+</head>
+<body>
+  <div id="header-container"></div>
+
+  <section class="page-hero">
+    <div class="container">
+      <nav style="display:flex;align-items:center;gap:8px;justify-content:center;font-size:.78rem;opacity:.6;margin-bottom:14px;" aria-label="Breadcrumb">
+        <a href="/" style="color:inherit;">Home</a>
+        <i class="fas fa-chevron-right" style="font-size:.6rem;"></i>
+        <span>Events</span>
+      </nav>
+      <span class="eyebrow" style="background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.2);color:rgba(255,255,255,.85);"><i class="fas fa-calendar-star"></i> Institute Activities</span>
+      <h1>Events &amp; Activities</h1>
+      <p>Celebrations, ceremonies, training days, and milestones at SOSTTI.</p>
+    </div>
+  </section>
+
+  <section class="content-section">
+    <div class="container">
+
+      <div class="events-filter reveal">
+        <button class="ev-tag active" data-filter="all">All Events</button>
+        <button class="ev-tag" data-filter="ceremony">Ceremonies</button>
+        <button class="ev-tag" data-filter="training">Training</button>
+        <button class="ev-tag" data-filter="awareness">Awareness</button>
+        <button class="ev-tag" data-filter="community">Community</button>
+      </div>
+
+      <div class="events-grid" id="eventsGrid">
+
+        <article class="event-card reveal" data-cat="training">
+          <div class="ev-gallery g3">
+            <img src="../images/events/03102025-1.jpg" alt="PTM 2025" loading="lazy">
+            <img src="../images/events/03102025-2.jpg" alt="PTM 2025" loading="lazy">
+            <img src="../images/events/03102025-3.jpg" alt="PTM 2025" loading="lazy">
+          </div>
+          <div class="ev-body">
+            <div class="ev-meta"><span class="ev-date">Oct 2025</span><span class="ev-cat">Training</span></div>
+            <h3>Parents Teacher Meeting (PTM)</h3>
+            <p>Productive engagement session connecting parents with instructors to discuss student progress and career pathways.</p>
+          </div>
+        </article>
+
+        <article class="event-card reveal" data-cat="awareness">
+          <div class="ev-gallery g2">
+            <img src="../images/events/24092025-1.jpeg" alt="ITCN Asia 2025" loading="lazy">
+            <img src="../images/events/24092025-2.jpeg" alt="ITCN Asia 2025" loading="lazy">
+          </div>
+          <div class="ev-body">
+            <div class="ev-meta"><span class="ev-date">Sep 2025</span><span class="ev-cat">Awareness</span></div>
+            <h3>Information Technology &amp; Telecom (ITCN) ASIA Pakistan</h3>
+            <p>SOSTTI students participated in Pakistan's premier IT &amp; telecom exhibition, networking with industry leaders.</p>
+          </div>
+        </article>
+
+        <article class="event-card reveal" data-cat="training">
+          <div class="ev-gallery g3">
+            <img src="../images/events/26092025-1.jpg" alt="Motivation Lecture 2025" loading="lazy">
+            <img src="../images/events/26092025-2.jpg" alt="Motivation Lecture 2025" loading="lazy">
+            <img src="../images/events/26092025-3.jpg" alt="Motivation Lecture 2025" loading="lazy">
+          </div>
+          <div class="ev-body">
+            <div class="ev-meta"><span class="ev-date">Sep 2025</span><span class="ev-cat">Training</span></div>
+            <h3>Motivation Lecture</h3>
+            <p>Industry professionals delivered inspiring talks to motivate students toward excellence in their trades.</p>
+          </div>
+        </article>
+
+        <article class="event-card reveal" data-cat="ceremony">
+          <div class="ev-gallery g2">
+            <img src="../images/events/m42025-1.jpg" alt="Cert Distribution 2025" loading="lazy">
+            <img src="../images/events/m42025-2.jpg" alt="Cert Distribution 2025" loading="lazy">
+          </div>
+          <div class="ev-body">
+            <div class="ev-meta"><span class="ev-date">Apr 2025</span><span class="ev-cat">Ceremony</span></div>
+            <h3>Certificate Distribution Ceremony</h3>
+            <p>Graduates from multiple courses received their NAVTTC-recognized certificates in a proud celebration.</p>
+          </div>
+        </article>
+
+        <article class="event-card reveal" data-cat="ceremony">
+          <div class="ev-gallery g2">
+            <img src="../images/events/j312025-1.jpg" alt="Cert Ceremony Jan 2025" loading="lazy">
+            <img src="../images/events/j312025-2.jpg" alt="Cert Ceremony Jan 2025" loading="lazy">
+          </div>
+          <div class="ev-body">
+            <div class="ev-meta"><span class="ev-date">Jan 2025</span><span class="ev-cat">Ceremony</span></div>
+            <h3>Certificate Distribution Ceremony</h3>
+            <p>BBSHRRDB program graduates celebrated the completion of government-sponsored technical training.</p>
+          </div>
+        </article>
+
+        <article class="event-card reveal" data-cat="awareness">
+          <div class="ev-gallery g2">
+            <img src="../images/events/19012025-1.jpg" alt="Cyber Security Awareness" loading="lazy">
+            <img src="../images/events/20012025-1.jpeg" alt="Cyber Security Awareness" loading="lazy">
+          </div>
+          <div class="ev-body">
+            <div class="ev-meta"><span class="ev-date">Jan 2025</span><span class="ev-cat">Awareness</span></div>
+            <h3>Cyber Security Awareness Session</h3>
+            <p>Expert session on digital threats, safe online practices, and career opportunities in cybersecurity.</p>
+          </div>
+        </article>
+
+        <article class="event-card reveal" data-cat="training">
+          <div class="ev-gallery g2">
+            <img src="../images/events/16112024-1.jpeg" alt="Fire Exercise 2024" loading="lazy">
+            <img src="../images/events/16112024-2.jpeg" alt="Fire Exercise 2024" loading="lazy">
+          </div>
+          <div class="ev-body">
+            <div class="ev-meta"><span class="ev-date">Nov 2024</span><span class="ev-cat">Training</span></div>
+            <h3>Fire Safety Exercise</h3>
+            <p>Campus-wide fire evacuation drill and safety training to ensure all students and staff are prepared for emergencies.</p>
+          </div>
+        </article>
+
+        <article class="event-card reveal" data-cat="community">
+          <div class="ev-gallery g2">
+            <img src="../images/events/11112024-1.jpg" alt="Blood Donation Camp 2024" loading="lazy">
+            <img src="../images/events/11112024-2.jpg" alt="Blood Donation Camp 2024" loading="lazy">
+          </div>
+          <div class="ev-body">
+            <div class="ev-meta"><span class="ev-date">Nov 2024</span><span class="ev-cat">Community</span></div>
+            <h3>Indus Hospital Blood Donation Camp</h3>
+            <p>SOSTTI partnered with Indus Hospital to host a blood donation camp, with students and staff participating actively.</p>
+          </div>
+        </article>
+
+        <article class="event-card reveal" data-cat="ceremony">
+          <div class="ev-gallery g2">
+            <img src="../images/events/03122024-1.jpg" alt="Cert Distribution Dec 2024" loading="lazy">
+            <img src="../images/events/03122024-2.jpg" alt="Cert Distribution Dec 2024" loading="lazy">
+          </div>
+          <div class="ev-body">
+            <div class="ev-meta"><span class="ev-date">Dec 2024</span><span class="ev-cat">Ceremony</span></div>
+            <h3>Certificate Distribution Ceremony</h3>
+            <p>Year-end celebration honoring graduates across Computer IT, Technical, and Government-sponsored programs.</p>
+          </div>
+        </article>
+
+        <article class="event-card reveal" data-cat="training">
+          <div class="ev-gallery g2">
+            <img src="../images/events/23022024-1.jpg" alt="Automobile Training 2024" loading="lazy">
+            <img src="../images/events/23022024-2.jpg" alt="Automobile Training 2024" loading="lazy">
+          </div>
+          <div class="ev-body">
+            <div class="ev-meta"><span class="ev-date">Feb 2024</span><span class="ev-cat">Training</span></div>
+            <h3>Automobile Training Day</h3>
+            <p>Advanced hands-on session for automotive students with industry-standard diagnostic equipment and real vehicles.</p>
+          </div>
+        </article>
+
+        <article class="event-card reveal" data-cat="community">
+          <div class="ev-gallery g2">
+            <img src="../images/events/17102023-1.jpg" alt="Women Empowerment 2023" loading="lazy">
+            <img src="../images/events/17102023-2.jpg" alt="Women Empowerment 2023" loading="lazy">
+          </div>
+          <div class="ev-body">
+            <div class="ev-meta"><span class="ev-date">Oct 2023</span><span class="ev-cat">Community</span></div>
+            <h3>PM's Women Empowerment Package #SheFixes</h3>
+            <p>Special government-sponsored program launch empowering women through technical skill development.</p>
+          </div>
+        </article>
+
+        <article class="event-card reveal" data-cat="ceremony">
+          <div class="ev-gallery g2">
+            <img src="../images/events/20062023-1.jpg" alt="Madrasa Students 2023" loading="lazy">
+            <img src="../images/events/20062023-2.jpg" alt="Madrasa Students 2023" loading="lazy">
+          </div>
+          <div class="ev-body">
+            <div class="ev-meta"><span class="ev-date">Jun 2023</span><span class="ev-cat">Ceremony</span></div>
+            <h3>Skill Madrasah Youth — Stipend Distribution</h3>
+            <p>Stipend distribution ceremony for Madrasa students under PM's Youth Skill Development Program.</p>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <div id="footer-container"></div>
+  <script src="../js/core.js"></script>
+  <script>
+    document.querySelectorAll('.ev-tag').forEach(function(btn){
+      btn.addEventListener('click',function(){
+        document.querySelectorAll('.ev-tag').forEach(function(b){b.classList.remove('active');});
+        btn.classList.add('active');
+        var f = btn.dataset.filter;
+        document.querySelectorAll('.event-card').forEach(function(c){
+          c.style.display = (f==='all'||c.dataset.cat===f)?'':'none';
+        });
+      });
+    });
+  </script>
+</body>
+</html>
