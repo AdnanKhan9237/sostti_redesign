@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Events � SOSTTI</title>
+  <title>Events</title>
   <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
   <meta name="description" content="Events and activities at SOS Technical Training Institute, Karachi.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -11,57 +12,214 @@
   <link rel="preconnect" href="https://cdnjs.cloudflare.com">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <link rel="stylesheet" href="../assets/style.css">
-  <script>(function(){var s=localStorage.getItem('sostti-theme');if(s==='dark'||(!s&&window.matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark');})();</script>
+  <script>(function () { var s = localStorage.getItem('sostti-theme'); if (s === 'dark' || (!s && window.matchMedia('(prefers-color-scheme:dark)').matches)) document.documentElement.setAttribute('data-theme', 'dark'); })();</script>
   <style>
-    .events-filter { display:flex; flex-wrap:wrap; gap:8px; justify-content:center; margin-bottom:36px; overflow-x:auto; -webkit-overflow-scrolling:touch; padding-bottom:4px; }
-    .ev-tag { padding:6px 16px; border:1.5px solid var(--bdr); border-radius:var(--r-full); background:var(--surface); font-size:.8rem; font-weight:700; color:var(--text-2); cursor:pointer; transition:var(--t-fast); white-space:nowrap; }
-    .ev-tag:hover, .ev-tag.active { background:var(--sapphire); color:#fff; border-color:var(--sapphire); }
-    .events-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(340px,1fr)); gap:28px; }
-    .event-card { background:var(--surface); border:1px solid var(--bdr); border-radius:var(--r-lg); overflow:hidden; box-shadow:var(--sh-sm); transition:var(--t); }
-    .event-card:hover { transform:translateY(-5px); box-shadow:var(--sh-lg); border-color:rgba(29,111,239,.25); }
-    .ev-gallery { display:grid; gap:2px; }
-    .ev-gallery.g1 img { height:220px; width:100%; object-fit:cover; }
-    .ev-gallery.g2 { grid-template-columns:1fr 1fr; }
-    .ev-gallery.g2 img { height:150px; width:100%; object-fit:cover; }
-    .ev-gallery.g3 { grid-template-columns:1fr 1fr; }
-    .ev-gallery.g3 img:first-child { grid-column:1/-1; height:160px; width:100%; object-fit:cover; }
-    .ev-gallery.g3 img:not(:first-child) { height:110px; width:100%; object-fit:cover; }
-    .ev-body { padding:20px; }
-    .ev-meta { display:flex; align-items:center; gap:10px; margin-bottom:8px; flex-wrap:wrap; }
-    .ev-date { font-size:.74rem; font-weight:700; color:var(--sapphire); letter-spacing:.05em; }
-    .ev-cat { padding:2px 9px; background:var(--sapphire-lt); color:var(--sapphire); border-radius:var(--r-full); font-size:.7rem; font-weight:800; }
-    .ev-body h3 { font-size:.98rem; font-weight:800; margin-bottom:7px; line-height:1.3; }
-    .ev-body p { font-size:.84rem; color:var(--text-2); line-height:1.6; }
-    @media(max-width:768px){
-      .events-grid{grid-template-columns:repeat(auto-fill,minmax(280px,1fr));}
-      .ev-gallery.g1 img{height:180px;}
-      .ev-gallery.g2 img{height:120px;}
-      .ev-gallery.g3 img:first-child{height:140px;}
-      .ev-gallery.g3 img:not(:first-child){height:90px;}
-      .ev-body{padding:16px;}
+    .events-filter {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      justify-content: center;
+      margin-bottom: 36px;
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      padding-bottom: 4px;
     }
-    @media(max-width:576px){
-      .events-grid{grid-template-columns:1fr;}
-      .ev-gallery.g2{grid-template-columns:1fr;}
-      .ev-gallery.g2 img{height:160px;}
-      .ev-gallery.g3{grid-template-columns:1fr;}
-      .ev-gallery.g3 img:first-child{grid-column:auto;height:160px;}
-      .ev-gallery.g3 img:not(:first-child){height:120px;}
-      .ev-tag{padding:5px 12px;font-size:.76rem;}
+
+    .ev-tag {
+      padding: 6px 16px;
+      border: 1.5px solid var(--bdr);
+      border-radius: var(--r-full);
+      background: var(--surface);
+      font-size: .8rem;
+      font-weight: 700;
+      color: var(--text-2);
+      cursor: pointer;
+      transition: var(--t-fast);
+      white-space: nowrap;
+    }
+
+    .ev-tag:hover,
+    .ev-tag.active {
+      background: var(--sapphire);
+      color: #fff;
+      border-color: var(--sapphire);
+    }
+
+    .events-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+      gap: 28px;
+    }
+
+    .event-card {
+      background: var(--surface);
+      border: 1px solid var(--bdr);
+      border-radius: var(--r-lg);
+      overflow: hidden;
+      box-shadow: var(--sh-sm);
+      transition: var(--t);
+    }
+
+    .event-card:hover {
+      transform: translateY(-5px);
+      box-shadow: var(--sh-lg);
+      border-color: rgba(29, 111, 239, .25);
+    }
+
+    .ev-gallery {
+      display: grid;
+      gap: 2px;
+    }
+
+    .ev-gallery.g1 img {
+      height: 220px;
+      width: 100%;
+      object-fit: cover;
+    }
+
+    .ev-gallery.g2 {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .ev-gallery.g2 img {
+      height: 150px;
+      width: 100%;
+      object-fit: cover;
+    }
+
+    .ev-gallery.g3 {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .ev-gallery.g3 img:first-child {
+      grid-column: 1/-1;
+      height: 160px;
+      width: 100%;
+      object-fit: cover;
+    }
+
+    .ev-gallery.g3 img:not(:first-child) {
+      height: 110px;
+      width: 100%;
+      object-fit: cover;
+    }
+
+    .ev-body {
+      padding: 20px;
+    }
+
+    .ev-meta {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 8px;
+      flex-wrap: wrap;
+    }
+
+    .ev-date {
+      font-size: .74rem;
+      font-weight: 700;
+      color: var(--sapphire);
+      letter-spacing: .05em;
+    }
+
+    .ev-cat {
+      padding: 2px 9px;
+      background: var(--sapphire-lt);
+      color: var(--sapphire);
+      border-radius: var(--r-full);
+      font-size: .7rem;
+      font-weight: 800;
+    }
+
+    .ev-body h3 {
+      font-size: .98rem;
+      font-weight: 800;
+      margin-bottom: 7px;
+      line-height: 1.3;
+    }
+
+    .ev-body p {
+      font-size: .84rem;
+      color: var(--text-2);
+      line-height: 1.6;
+    }
+
+    @media(max-width:768px) {
+      .events-grid {
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      }
+
+      .ev-gallery.g1 img {
+        height: 180px;
+      }
+
+      .ev-gallery.g2 img {
+        height: 120px;
+      }
+
+      .ev-gallery.g3 img:first-child {
+        height: 140px;
+      }
+
+      .ev-gallery.g3 img:not(:first-child) {
+        height: 90px;
+      }
+
+      .ev-body {
+        padding: 16px;
+      }
+    }
+
+    @media(max-width:576px) {
+      .events-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .ev-gallery.g2 {
+        grid-template-columns: 1fr;
+      }
+
+      .ev-gallery.g2 img {
+        height: 160px;
+      }
+
+      .ev-gallery.g3 {
+        grid-template-columns: 1fr;
+      }
+
+      .ev-gallery.g3 img:first-child {
+        grid-column: auto;
+        height: 160px;
+      }
+
+      .ev-gallery.g3 img:not(:first-child) {
+        height: 120px;
+      }
+
+      .ev-tag {
+        padding: 5px 12px;
+        font-size: .76rem;
+      }
     }
   </style>
 </head>
+
 <body>
   <div id="header-container"></div>
 
   <section class="page-hero">
     <div class="container">
-      <nav style="display:flex;align-items:center;gap:8px;justify-content:center;font-size:.78rem;opacity:.6;margin-bottom:14px;" aria-label="Breadcrumb">
+      <nav
+        style="display:flex;align-items:center;gap:8px;justify-content:center;font-size:.78rem;opacity:.6;margin-bottom:14px;"
+        aria-label="Breadcrumb">
         <a href="/" style="color:inherit;">Home</a>
         <i class="fas fa-chevron-right" style="font-size:.6rem;"></i>
         <span>Events</span>
       </nav>
-      <span class="eyebrow" style="background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.2);color:rgba(255,255,255,.85);"><i class="fas fa-calendar-star"></i> Institute Activities</span>
+      <span class="eyebrow"
+        style="background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.2);color:rgba(255,255,255,.85);"><i
+          class="fas fa-calendar-star"></i> Institute Activities</span>
       <h1>Events &amp; Activities</h1>
       <p>Celebrations, ceremonies, training days, and milestones at SOSTTI.</p>
     </div>
@@ -80,149 +238,605 @@
 
       <div class="events-grid" id="eventsGrid">
 
+        <!-- Event 46: Feb 2026 -->
+        <article class="event-card reveal" data-cat="community">
+          <div class="ev-gallery g3">
+            <img src="../images/events/KS1.webp" alt="Kashmir Solidarity Day" loading="lazy">
+            <img src="../images/events/KS2.webp" alt="Kashmir Solidarity Day" loading="lazy">
+            <img src="../images/events/KS3.webp" alt="Kashmir Solidarity Day" loading="lazy">
+          </div>
+          <div class="ev-body">
+            <div class="ev-meta"><span class="ev-date">Feb 2026</span><span class="ev-cat">Community</span></div>
+            <h3>Kashmir Solidarity Day</h3>
+            <p>SOSTTI observed Kashmir Solidarity Day on February 5, 2026, to express solidarity with the people of Kashmir.</p>
+          </div>
+        </article>
+
+        <!-- Event 45: Oct 2025 -->
         <article class="event-card reveal" data-cat="training">
           <div class="ev-gallery g3">
-            <img src="../images/events/03102025-1.jpg" alt="PTM 2025" loading="lazy">
-            <img src="../images/events/03102025-2.jpg" alt="PTM 2025" loading="lazy">
-            <img src="../images/events/03102025-3.jpg" alt="PTM 2025" loading="lazy">
+            <img src="../images/events/03102025-1.webp" alt="PTM 2025" loading="lazy">
+            <img src="../images/events/03102025-2.webp" alt="PTM 2025" loading="lazy">
+            <img src="../images/events/03102025-3.webp" alt="PTM 2025" loading="lazy">
           </div>
           <div class="ev-body">
             <div class="ev-meta"><span class="ev-date">Oct 2025</span><span class="ev-cat">Training</span></div>
             <h3>Parents Teacher Meeting (PTM)</h3>
-            <p>Productive engagement session connecting parents with instructors to discuss student progress and career pathways.</p>
+            <p>Parents Teacher Meeting was held on Friday October 03, 2025. 46 parents attended the meeting. Parents were satisfied by the training being provided.</p>
           </div>
         </article>
 
+        <!-- Event 44: Sep 2025 -->
         <article class="event-card reveal" data-cat="awareness">
           <div class="ev-gallery g2">
-            <img src="../images/events/24092025-1.jpeg" alt="ITCN Asia 2025" loading="lazy">
-            <img src="../images/events/24092025-2.jpeg" alt="ITCN Asia 2025" loading="lazy">
+            <img src="../images/events/24092025-1.webp" alt="ITCN Asia 2025" loading="lazy">
+            <img src="../images/events/24092025-2.webp" alt="ITCN Asia 2025" loading="lazy">
           </div>
           <div class="ev-body">
             <div class="ev-meta"><span class="ev-date">Sep 2025</span><span class="ev-cat">Awareness</span></div>
             <h3>Information Technology &amp; Telecom (ITCN) ASIA Pakistan</h3>
-            <p>SOSTTI students participated in Pakistan's premier IT &amp; telecom exhibition, networking with industry leaders.</p>
+            <p>ITCN arranged an Expo showcasing various technology sectors like Artificial Intelligence, Cyber Security and Financial Technology (Fintech). Staff and students from SOSTTI attended the expo on September 24, 2025.</p>
           </div>
         </article>
 
+        <!-- Event 43: Sep 2025 -->
         <article class="event-card reveal" data-cat="training">
           <div class="ev-gallery g3">
-            <img src="../images/events/26092025-1.jpg" alt="Motivation Lecture 2025" loading="lazy">
-            <img src="../images/events/26092025-2.jpg" alt="Motivation Lecture 2025" loading="lazy">
-            <img src="../images/events/26092025-3.jpg" alt="Motivation Lecture 2025" loading="lazy">
+            <img src="../images/events/26092025-1.webp" alt="Motivation Lecture 2025" loading="lazy">
+            <img src="../images/events/26092025-2.webp" alt="Motivation Lecture 2025" loading="lazy">
+            <img src="../images/events/26092025-3.webp" alt="Motivation Lecture 2025" loading="lazy">
           </div>
           <div class="ev-body">
             <div class="ev-meta"><span class="ev-date">Sep 2025</span><span class="ev-cat">Training</span></div>
             <h3>Motivation Lecture</h3>
-            <p>Industry professionals delivered inspiring talks to motivate students toward excellence in their trades.</p>
+            <p>Mr Qasim Rana, CEO, 12 Solutions (Software House) gave a lecture on "life skills" on Friday September 26, 2025. A large number of students and staff attended the lecture.</p>
           </div>
         </article>
 
+        <!-- Event 42: Mar 2025 -->
         <article class="event-card reveal" data-cat="ceremony">
           <div class="ev-gallery g2">
-            <img src="../images/events/m42025-1.jpg" alt="Cert Distribution 2025" loading="lazy">
-            <img src="../images/events/m42025-2.jpg" alt="Cert Distribution 2025" loading="lazy">
+            <img src="../images/events/m42025-1.webp" alt="Cert Distribution 2025" loading="lazy">
+            <img src="../images/events/m42025-2.webp" alt="Cert Distribution 2025" loading="lazy">
+            <img src="../images/events/m42025-3.webp" alt="Cert Distribution 2025" loading="lazy">
+            <img src="../images/events/m42025-4.webp" alt="Cert Distribution 2025" loading="lazy">
           </div>
           <div class="ev-body">
-            <div class="ev-meta"><span class="ev-date">Apr 2025</span><span class="ev-cat">Ceremony</span></div>
+            <div class="ev-meta"><span class="ev-date">Mar 2025</span><span class="ev-cat">Ceremony</span></div>
             <h3>Certificate Distribution Ceremony</h3>
-            <p>Graduates from multiple courses received their NAVTTC-recognized certificates in a proud celebration.</p>
+            <p>Ms Ava A Cowasjee, business women and member of SOS TTI education committee distributed certificates to students on completion of NAVTTC (Recognition of Prior Learning) training program on March 04, 2025.</p>
           </div>
         </article>
 
+        <!-- Event 41: Jan 2025 -->
         <article class="event-card reveal" data-cat="ceremony">
           <div class="ev-gallery g2">
-            <img src="../images/events/j312025-1.jpg" alt="Cert Ceremony Jan 2025" loading="lazy">
-            <img src="../images/events/j312025-2.jpg" alt="Cert Ceremony Jan 2025" loading="lazy">
+            <img src="../images/events/j312025-1.webp" alt="Cert Ceremony Jan 2025" loading="lazy">
+            <img src="../images/events/j312025-2.webp" alt="Cert Ceremony Jan 2025" loading="lazy">
           </div>
           <div class="ev-body">
             <div class="ev-meta"><span class="ev-date">Jan 2025</span><span class="ev-cat">Ceremony</span></div>
             <h3>Certificate Distribution Ceremony</h3>
-            <p>BBSHRRDB program graduates celebrated the completion of government-sponsored technical training.</p>
+            <p>16 girl students of SOSTTI of the "Prime Minister's Women Empowerment Package (SheFixes)" received certificates on January 31, 2025 from Ms Gulmina Bilal, Chairperson, NAVTTC on completion of Mobile Phone Repairing course.</p>
           </div>
         </article>
 
+        <!-- Event 40: Jan 2025 -->
         <article class="event-card reveal" data-cat="awareness">
           <div class="ev-gallery g2">
-            <img src="../images/events/19012025-1.jpg" alt="Cyber Security Awareness" loading="lazy">
-            <img src="../images/events/20012025-1.jpeg" alt="Cyber Security Awareness" loading="lazy">
+            <img src="../images/events/j42025-1.webp" alt="Cyber Security Awareness" loading="lazy">
+            <img src="../images/events/j42025-2.webp" alt="Cyber Security Awareness" loading="lazy">
           </div>
           <div class="ev-body">
             <div class="ev-meta"><span class="ev-date">Jan 2025</span><span class="ev-cat">Awareness</span></div>
             <h3>Cyber Security Awareness Session</h3>
-            <p>Expert session on digital threats, safe online practices, and career opportunities in cybersecurity.</p>
+            <p>Cyber Security awareness session was conducted in SOSTTI on Saturday January 4, 2025. Mr Abdullah, Cyber Security Instructor, conducted the session. About 100 guests and students attended.</p>
           </div>
         </article>
 
+        <!-- Event 39: Dec 2024 -->
         <article class="event-card reveal" data-cat="training">
           <div class="ev-gallery g2">
-            <img src="../images/events/16112024-1.jpeg" alt="Fire Exercise 2024" loading="lazy">
-            <img src="../images/events/16112024-2.jpeg" alt="Fire Exercise 2024" loading="lazy">
+            <img src="../images/events/18122024-1.webp" alt="Fire Exercise Dec 2024" loading="lazy">
+            <img src="../images/events/18122024-2.webp" alt="Fire Exercise Dec 2024" loading="lazy">
           </div>
           <div class="ev-body">
-            <div class="ev-meta"><span class="ev-date">Nov 2024</span><span class="ev-cat">Training</span></div>
+            <div class="ev-meta"><span class="ev-date">Dec 2024</span><span class="ev-cat">Training</span></div>
             <h3>Fire Safety Exercise</h3>
-            <p>Campus-wide fire evacuation drill and safety training to ensure all students and staff are prepared for emergencies.</p>
+            <p>A fire safety exercise for staff and students was conducted at SOSTTI on December 18, 2024, under the supervision of Mr. Ghafoor Khan, Head of the Electrical Department, focusing on fire prevention, emergency response, and firefighting equipment.</p>
           </div>
         </article>
 
+        <!-- Event 38: Dec 2024 -->
+        <article class="event-card reveal" data-cat="training">
+          <div class="ev-gallery g2">
+            <img src="../images/events/15122024-1.webp" alt="Automobile Training Dec 2024" loading="lazy">
+            <img src="../images/events/15122024-2.webp" alt="Automobile Training Dec 2024" loading="lazy">
+          </div>
+          <div class="ev-body">
+            <div class="ev-meta"><span class="ev-date">Dec 2024</span><span class="ev-cat">Training</span></div>
+            <h3>Automobile Training</h3>
+            <p>A one-day automobile training session was conducted for 16 ambulance attendants from the Sindh Integrated Emergency Health Services (SIEHS), focused on basic vehicle maintenance and troubleshooting.</p>
+          </div>
+        </article>
+
+        <!-- Event 37: Dec 2024 -->
+        <article class="event-card reveal" data-cat="training">
+          <div class="ev-gallery g2">
+            <img src="../images/events/13122024-1.webp" alt="PTM Dec 2024" loading="lazy">
+            <img src="../images/events/13122024-2.webp" alt="PTM Dec 2024" loading="lazy">
+          </div>
+          <div class="ev-body">
+            <div class="ev-meta"><span class="ev-date">Dec 2024</span><span class="ev-cat">Training</span></div>
+            <h3>Parent Teacher Meeting</h3>
+            <p>Parent teacher meeting was conducted on December 13, 2024. About 50 parents attended in computer lab-I. Various issues related to training and discipline were discussed. Principal SOSTTI addressed the parents and answered their queries.</p>
+          </div>
+        </article>
+
+        <!-- Event 36: Nov 2024 -->
         <article class="event-card reveal" data-cat="community">
           <div class="ev-gallery g2">
-            <img src="../images/events/11112024-1.jpg" alt="Blood Donation Camp 2024" loading="lazy">
-            <img src="../images/events/11112024-2.jpg" alt="Blood Donation Camp 2024" loading="lazy">
+            <img src="../images/events/11112024-1.webp" alt="Blood Donation Camp Nov 2024" loading="lazy">
+            <img src="../images/events/11112024-2.webp" alt="Blood Donation Camp Nov 2024" loading="lazy">
           </div>
           <div class="ev-body">
             <div class="ev-meta"><span class="ev-date">Nov 2024</span><span class="ev-cat">Community</span></div>
             <h3>Indus Hospital Blood Donation Camp</h3>
-            <p>SOSTTI partnered with Indus Hospital to host a blood donation camp, with students and staff participating actively.</p>
+            <p>Indus Hospital organized a blood donation camp at SOSTTI on November 11, 2024. A total of 13 staff members and students participated, contributing to a noble cause and supporting patients in need.</p>
           </div>
         </article>
 
+        <!-- Event 35: Nov 2024 -->
+        <article class="event-card reveal" data-cat="community">
+          <div class="ev-gallery g2">
+            <img src="../images/events/16112024-1.webp" alt="Women Empowerment SheFixes" loading="lazy">
+            <img src="../images/events/16112024-2.webp" alt="Women Empowerment SheFixes" loading="lazy">
+          </div>
+          <div class="ev-body">
+            <div class="ev-meta"><span class="ev-date">Nov 2024</span><span class="ev-cat">Community</span></div>
+            <h3>PM's Women Empowerment Package #SheFixes</h3>
+            <p>NAVTTC sponsored a Mobile Phone Repairing course for 20 women and girls at SOSTTI, held from August 17, 2024, to November 16, 2024, empowering women through technical skills in mobile phone maintenance and repair.</p>
+          </div>
+        </article>
+
+        <!-- Event 34: Jan 2025 -->
+        <article class="event-card reveal" data-cat="community">
+          <div class="ev-gallery g2">
+            <img src="../images/events/20012025-1.webp" alt="Skill Madrasah Youth PMYSDP" loading="lazy">
+            <img src="../images/events/20012025-2.webp" alt="Skill Madrasah Youth PMYSDP" loading="lazy">
+          </div>
+          <div class="ev-body">
+            <div class="ev-meta"><span class="ev-date">Jan 2025</span><span class="ev-cat">Community</span></div>
+            <h3>Skill Madrasah Youth Under PMYSDP</h3>
+            <p>SOSTTI successfully conducted a three-month Mobile Phone Repairing course under the NAVTTC-sponsored Prime Minister's Youth Skill Development Program for Madrasah youth, equipping students with practical vocational skills.</p>
+          </div>
+        </article>
+
+        <!-- Event 33: Jan 2025 -->
         <article class="event-card reveal" data-cat="ceremony">
           <div class="ev-gallery g2">
-            <img src="../images/events/03122024-1.jpg" alt="Cert Distribution Dec 2024" loading="lazy">
-            <img src="../images/events/03122024-2.jpg" alt="Cert Distribution Dec 2024" loading="lazy">
+            <img src="../images/events/19012025-1.webp" alt="Madrasa Stipend Distribution 2025" loading="lazy">
+            <img src="../images/events/19012025-2.webp" alt="Madrasa Stipend Distribution 2025" loading="lazy">
+          </div>
+          <div class="ev-body">
+            <div class="ev-meta"><span class="ev-date">Jan 2025</span><span class="ev-cat">Ceremony</span></div>
+            <h3>Stipend Distribution Ceremony of Madrasa Students</h3>
+            <p>A Stipend Distribution Ceremony for Madrasa students enrolled in the NAVTTC Mobile Phone Repairing course was held at SOSTTI, recognizing their dedication and encouraging their continued learning.</p>
+          </div>
+        </article>
+
+        <!-- Event 32: Dec 2024 -->
+        <article class="event-card reveal" data-cat="ceremony">
+          <div class="ev-gallery g2">
+            <img src="../images/events/03122024-1.webp" alt="Tool Kit Distribution Dec 2024" loading="lazy">
+            <img src="../images/events/03122024-2.webp" alt="Tool Kit Distribution Dec 2024" loading="lazy">
           </div>
           <div class="ev-body">
             <div class="ev-meta"><span class="ev-date">Dec 2024</span><span class="ev-cat">Ceremony</span></div>
-            <h3>Certificate Distribution Ceremony</h3>
-            <p>Year-end celebration honoring graduates across Computer IT, Technical, and Government-sponsored programs.</p>
+            <h3>Tool Kit Distribution Ceremony for Top Performers</h3>
+            <p>SOSTTI conducted a Tool Kit Distribution Ceremony on December 3, 2024 for technical students securing first position in final examinations. Mr Nazim F. Haji, Member Governing Board Infaq Foundation was the Chief Guest.</p>
           </div>
         </article>
 
+        <!-- Event 31: Oct 2024 -->
+        <article class="event-card reveal" data-cat="ceremony">
+          <div class="ev-gallery g2">
+            <img src="../images/events/02102024-1.webp" alt="BBSHRRDB Cert Ceremony Oct 2024" loading="lazy">
+            <img src="../images/events/02102024-2.webp" alt="BBSHRRDB Cert Ceremony Oct 2024" loading="lazy">
+          </div>
+          <div class="ev-body">
+            <div class="ev-meta"><span class="ev-date">Oct 2024</span><span class="ev-cat">Ceremony</span></div>
+            <h3>Certificate Distribution Ceremony — BBSHRRDB Students</h3>
+            <p>The BBSHRRDB Certificate Distribution Ceremony was held on October 2, 2024, at SOSTTI, celebrating graduates who successfully completed their training programs and highlighting SOSTTI's commitment to skill development.</p>
+          </div>
+        </article>
+
+        <!-- Event 30: Feb 2024 -->
         <article class="event-card reveal" data-cat="training">
           <div class="ev-gallery g2">
-            <img src="../images/events/23022024-1.jpg" alt="Automobile Training 2024" loading="lazy">
-            <img src="../images/events/23022024-2.jpg" alt="Automobile Training 2024" loading="lazy">
+            <img src="../images/events/23022024-1.webp" alt="Career Counseling 2024" loading="lazy">
+            <img src="../images/events/23022024-2.webp" alt="Career Counseling 2024" loading="lazy">
           </div>
           <div class="ev-body">
             <div class="ev-meta"><span class="ev-date">Feb 2024</span><span class="ev-cat">Training</span></div>
-            <h3>Automobile Training Day</h3>
-            <p>Advanced hands-on session for automotive students with industry-standard diagnostic equipment and real vehicles.</p>
+            <h3>Career Counseling Session</h3>
+            <p>A career counseling session for NAVTTC and BBSHRRDB students was held on February 23, 2024. Mr. Mehmood Ali served as the guest speaker sharing insights on career planning, skill development, and employment opportunities.</p>
           </div>
         </article>
 
-        <article class="event-card reveal" data-cat="community">
+        <!-- Event 29: Oct 2023 -->
+        <article class="event-card reveal" data-cat="training">
           <div class="ev-gallery g2">
-            <img src="../images/events/17102023-1.jpg" alt="Women Empowerment 2023" loading="lazy">
-            <img src="../images/events/17102023-2.jpg" alt="Women Empowerment 2023" loading="lazy">
+            <img src="../images/events/17102023-1.webp" alt="Atlas Honda Motorcycle Training 2023" loading="lazy">
+            <img src="../images/events/17102023-2.webp" alt="Atlas Honda Motorcycle Training 2023" loading="lazy">
           </div>
           <div class="ev-body">
-            <div class="ev-meta"><span class="ev-date">Oct 2023</span><span class="ev-cat">Community</span></div>
-            <h3>PM's Women Empowerment Package #SheFixes</h3>
-            <p>Special government-sponsored program launch empowering women through technical skill development.</p>
+            <div class="ev-meta"><span class="ev-date">Oct 2023</span><span class="ev-cat">Training</span></div>
+            <h3>Atlas Honda Training for Motorcycle Students</h3>
+            <p>Atlas Honda conducted a training session for SOSTTI Motorcycle Workshop students from October 17 to 19, 2023, focused on practical skills in motorcycle maintenance and repair with valuable hands-on industry exposure.</p>
           </div>
         </article>
 
+        <!-- Event 28: Oct 2023 -->
+        <article class="event-card reveal" data-cat="training">
+          <div class="ev-gallery g2">
+            <img src="../images/events/10102023-1.webp" alt="Shell Eco Car Review 2023" loading="lazy">
+            <img src="../images/events/10102023-2.webp" alt="Shell Eco Car Review 2023" loading="lazy">
+          </div>
+          <div class="ev-body">
+            <div class="ev-meta"><span class="ev-date">Oct 2023</span><span class="ev-cat">Training</span></div>
+            <h3>Shell Sponsored Eco-Friendly Car — Students Project</h3>
+            <p>Shell Pakistan Limited conducted a review of the Eco-Friendly Car construction at SOSTTI on October 10, 2023, expressing satisfaction with the project's progress and encouraging continued development.</p>
+          </div>
+        </article>
+
+        <!-- Event 27: Jun 2023 -->
+        <article class="event-card reveal" data-cat="community">
+          <div class="ev-gallery g2">
+            <img src="../images/events/20062023-5.webp" alt="SOSTTI Student of the Year 2023" loading="lazy">
+            <img src="../images/events/20062023-6.webp" alt="SOSTTI Student of the Year 2023" loading="lazy">
+          </div>
+          <div class="ev-body">
+            <div class="ev-meta"><span class="ev-date">Jun 2023</span><span class="ev-cat">Community</span></div>
+            <h3>SOSTTI Student of the Year</h3>
+            <p>Mr. Mukhtar Ahmed, an ex-student of the DIT course, was recognized on June 20, 2023 for successfully establishing his own e-marketing business and becoming financially independent. He now also teaches at SOSTTI.</p>
+          </div>
+        </article>
+
+        <!-- Event 26: May 2023 -->
+        <article class="event-card reveal" data-cat="community">
+          <div class="ev-gallery g2">
+            <img src="../images/events/23052023-1.webp" alt="First Girl Student Technical Course" loading="lazy">
+            <img src="../images/events/23052023-2.webp" alt="First Girl Student Technical Course" loading="lazy">
+          </div>
+          <div class="ev-body">
+            <div class="ev-meta"><span class="ev-date">May 2023</span><span class="ev-cat">Community</span></div>
+            <h3>First Girl Student in a Technical Course</h3>
+            <p>Ms Humaima Faraz became the first girl student of the High Tech Automotive Technician course under the PM's Youth Skill Development Program. A BE Electronics graduate from Bahria University, her determination is an inspiration.</p>
+          </div>
+        </article>
+
+        <!-- Event 25: Jun 2023 -->
         <article class="event-card reveal" data-cat="ceremony">
           <div class="ev-gallery g2">
-            <img src="../images/events/20062023-1.jpg" alt="Madrasa Students 2023" loading="lazy">
-            <img src="../images/events/20062023-2.jpg" alt="Madrasa Students 2023" loading="lazy">
+            <img src="../images/events/20062023-3.webp" alt="NAVTTC UNHCR Afghan Refugees Batch II" loading="lazy">
+            <img src="../images/events/20062023-4.webp" alt="NAVTTC UNHCR Afghan Refugees Batch II" loading="lazy">
           </div>
           <div class="ev-body">
             <div class="ev-meta"><span class="ev-date">Jun 2023</span><span class="ev-cat">Ceremony</span></div>
-            <h3>Skill Madrasah Youth � Stipend Distribution</h3>
-            <p>Stipend distribution ceremony for Madrasa students under PM's Youth Skill Development Program.</p>
+            <h3>NAVTTC/UNHCR Skill Development Program — Afghan Refugees Batch-II</h3>
+            <p>25 Motorcycle Mechanic and 25 General Electrician students (Afghan Refugees, sponsored by NAVTTC/UNHCR) were issued tool kits and stipends in a ceremony held on June 20, 2023.</p>
+          </div>
+        </article>
+
+        <!-- Event 24: Jun 2023 -->
+        <article class="event-card reveal" data-cat="community">
+          <div class="ev-gallery g2">
+            <img src="../images/events/20062023-1.webp" alt="SOSTTI Shell Tameer Program 2023" loading="lazy">
+            <img src="../images/events/20062023-2.webp" alt="SOSTTI Shell Tameer Program 2023" loading="lazy">
+          </div>
+          <div class="ev-body">
+            <div class="ev-meta"><span class="ev-date">Jun 2023</span><span class="ev-cat">Community</span></div>
+            <h3>SOSTTI / Shell Tameer Program</h3>
+            <p>16 SOSTTI student entrepreneurs were provided tools and equipment under the Shell Tameer Program in a ceremony on June 20, 2023. Chairman Mr Sanaullah Qureshi visited student stalls and handed over tools to the entrepreneurs.</p>
+          </div>
+        </article>
+
+        <!-- Event 23: May 2023 -->
+        <article class="event-card reveal" data-cat="training">
+          <div class="ev-gallery g2">
+            <img src="../images/events/04052023-1.webp" alt="Eco Friendly Car Students Project" loading="lazy">
+            <img src="../images/events/04052023-2.webp" alt="Eco Friendly Car Students Project" loading="lazy">
+          </div>
+          <div class="ev-body">
+            <div class="ev-meta"><span class="ev-date">May 2023</span><span class="ev-cat">Training</span></div>
+            <h3>Manufacture of an Eco-Friendly Car — Students Project</h3>
+            <p>The fabrication of the Eco-Friendly Car, sponsored by Shell Pakistan Limited, has begun at SOSTTI. Students are actively involved in the design and assembly process under instructor supervision.</p>
+          </div>
+        </article>
+
+        <!-- Event 22: Mar 2023 -->
+        <article class="event-card reveal" data-cat="community">
+          <div class="ev-gallery g2">
+            <img src="../images/events/02032023-1.webp" alt="Shell MOU Eco Marathon Car" loading="lazy">
+            <img src="../images/events/02032023-2.webp" alt="Shell MOU Eco Marathon Car" loading="lazy">
+          </div>
+          <div class="ev-body">
+            <div class="ev-meta"><span class="ev-date">Mar 2023</span><span class="ev-cat">Community</span></div>
+            <h3>MOU Between Shell Pakistan Limited and SOSTTI to Manufacture Eco Marathon Car</h3>
+            <p>MOU between Shell Pakistan Limited and SOSTTI to manufacture an eco-friendly Car as a student's project was signed on March 8, 2023, by Chairman Mr Sanaullah Qureshi and Ms Nida Tanzed, Social Performance Manager, Shell Pakistan.</p>
+          </div>
+        </article>
+
+        <!-- Event 21: Feb 2023 -->
+        <article class="event-card reveal" data-cat="community">
+          <div class="ev-gallery g2">
+            <img src="../images/events/14022023-1.webp" alt="Visit from National Office 2023" loading="lazy">
+            <img src="../images/events/14022023-2.webp" alt="Visit from National Office 2023" loading="lazy">
+          </div>
+          <div class="ev-body">
+            <div class="ev-meta"><span class="ev-date">Feb 2023</span><span class="ev-cat">Community</span></div>
+            <h3>Visit from National Office</h3>
+            <p>President-elect Mr. Shahid Hamid visited SOSTTI on February 14, 2023, accompanied by EVP Mrs. Mahnaz Farid and National Director Mrs. Saba Faisal. The Principal briefed him on SOSTTI's history, activities, and training programs.</p>
+          </div>
+        </article>
+
+        <!-- Event 20: Dec 2022 -->
+        <article class="event-card reveal" data-cat="ceremony">
+          <div class="ev-gallery g2">
+            <img src="../images/events/12062022-1.webp" alt="Certificate Distribution Dec 2022" loading="lazy">
+            <img src="../images/events/12062022-2.webp" alt="Certificate Distribution Dec 2022" loading="lazy">
+          </div>
+          <div class="ev-body">
+            <div class="ev-meta"><span class="ev-date">Dec 2022</span><span class="ev-cat">Ceremony</span></div>
+            <h3>Certificate Distribution Ceremony</h3>
+            <p>A Certificate Distribution Ceremony was held on December 6, 2022, to award certificates to graduating students of Phase-IV, Batch-X of the BBSHRRDB. Mr. Yasir Ashraf, CEO of Infaq Foundation, attended as Chief Guest.</p>
+          </div>
+        </article>
+
+        <!-- Event 19: Nov 2022 -->
+        <article class="event-card reveal" data-cat="training">
+          <div class="ev-gallery g2">
+            <img src="../images/events/24112022-1.webp" alt="NAVTTC UNHCR Afghan Refugees Final Assessment" loading="lazy">
+            <img src="../images/events/24112022-2.webp" alt="NAVTTC UNHCR Afghan Refugees Final Assessment" loading="lazy">
+          </div>
+          <div class="ev-body">
+            <div class="ev-meta"><span class="ev-date">Nov 2022</span><span class="ev-cat">Training</span></div>
+            <h3>NAVTTC/UNHCR Skill Development — Afghan Refugees Batch-II Final Assessment</h3>
+            <p>Final assessment was conducted by NAVTTC assessors on November 24, 2022, monitored by Deputy Director Mr Faqir Muhammad from NAVTTC Headquarters Islamabad and Assistant Director Mr Bharat Kumar from the Regional Office, Karachi.</p>
+          </div>
+        </article>
+
+        <!-- Event 18: Nov 2022 -->
+        <article class="event-card reveal" data-cat="training">
+          <div class="ev-gallery g2">
+            <img src="../images/events/18112022-1.webp" alt="Fire Exercise Nov 2022" loading="lazy">
+            <img src="../images/events/18112022-2.webp" alt="Fire Exercise Nov 2022" loading="lazy">
+          </div>
+          <div class="ev-body">
+            <div class="ev-meta"><span class="ev-date">Nov 2022</span><span class="ev-cat">Training</span></div>
+            <h3>Fire Safety Exercise</h3>
+            <p>SOSTTI students participated in a practical fire safety exercise on November 26 &amp; 28, 2022, under the supervision of Mr. Ghafoor Khan, Head of the Electrical Department. Students practiced fire extinguisher use, evacuation, and safety protocols.</p>
+          </div>
+        </article>
+
+        <!-- Event 17: Dec 2022 -->
+        <article class="event-card reveal" data-cat="community">
+          <div class="ev-gallery g2">
+            <img src="../images/events/01122022-1.webp" alt="Shell Tameer Workshop Dec 2022" loading="lazy">
+            <img src="../images/events/01122022-2.webp" alt="Shell Tameer Workshop Dec 2022" loading="lazy">
+          </div>
+          <div class="ev-body">
+            <div class="ev-meta"><span class="ev-date">Dec 2022</span><span class="ev-cat">Community</span></div>
+            <h3>Shell Tameer Entrepreneurship Workshop</h3>
+            <p>A SOSTTI/Shell Tameer workshop for student entrepreneurs was held on December 1, 2022. The session guided 30 students on business ideas, startup development, financial planning, and management as part of the Shell Pakistan collaboration.</p>
+          </div>
+        </article>
+
+        <!-- Event 16: Nov 2022 -->
+        <article class="event-card reveal" data-cat="ceremony">
+          <div class="ev-gallery g2">
+            <img src="../images/events/03112022-1.webp" alt="Gul Ahmed MOU 2022" loading="lazy">
+            <img src="../images/events/03112022-2.webp" alt="Gul Ahmed MOU 2022" loading="lazy">
+          </div>
+          <div class="ev-body">
+            <div class="ev-meta"><span class="ev-date">Nov 2022</span><span class="ev-cat">Ceremony</span></div>
+            <h3>MOU Signing — Gul Ahmed Textile Mills &amp; SOSTTI</h3>
+            <p>An MOU signing ceremony between Gul Ahmed Textile Mills Limited and SOSTTI was held on November 3, 2022, aiming to create employment, internship, and collaboration opportunities for SOSTTI students.</p>
+          </div>
+        </article>
+
+        <!-- Event 15: Aug 2022 -->
+        <article class="event-card reveal" data-cat="community">
+          <div class="ev-gallery g2">
+            <img src="../images/events/08022022-1.webp" alt="Shell Eco Car Collaboration 2022" loading="lazy">
+            <img src="../images/events/08022022-2.webp" alt="Shell Eco Car Collaboration 2022" loading="lazy">
+          </div>
+          <div class="ev-body">
+            <div class="ev-meta"><span class="ev-date">Aug 2022</span><span class="ev-cat">Community</span></div>
+            <h3>SOSTTI Collaborating with Shell Pakistan Limited</h3>
+            <p>A meeting was held on August 1, 2022 at SOSTTI to discuss construction of a Shell eco-friendly car. Shell representatives approved the concept and advised submitting phased funding proposals. An MOU is expected to be finalized at Shell House.</p>
+          </div>
+        </article>
+
+        <!-- Event 14: Aug 2022 -->
+        <article class="event-card reveal" data-cat="ceremony">
+          <div class="ev-gallery g2">
+            <img src="../images/events/08082022-1.webp" alt="Welding Internship Certificate Aug 2022" loading="lazy">
+            <img src="../images/events/08082022-2.webp" alt="Welding Internship Certificate Aug 2022" loading="lazy">
+          </div>
+          <div class="ev-body">
+            <div class="ev-meta"><span class="ev-date">Aug 2022</span><span class="ev-cat">Ceremony</span></div>
+            <h3>Advance Welding Course Internship Completion Certificate Distribution</h3>
+            <p>22 students of Advance Welding course completed 15-day internship at Automobile Corporation of Pakistan in Port Qasim. Certificates were awarded by CEO Cdre (Retd) Kamran Khan upon completion.</p>
+          </div>
+        </article>
+
+        <!-- Event 13: Jul 2022 -->
+        <article class="event-card reveal" data-cat="community">
+          <div class="ev-gallery g2">
+            <img src="../images/events/21072022-1.webp" alt="MOC Automobile Corporation Welding 2022" loading="lazy">
+            <img src="../images/events/21072022-2.webp" alt="MOC Automobile Corporation Welding 2022" loading="lazy">
+          </div>
+          <div class="ev-body">
+            <div class="ev-meta"><span class="ev-date">Jul 2022</span><span class="ev-cat">Community</span></div>
+            <h3>MOC — Internship for SOSTTI Welding Students</h3>
+            <p>A Memorandum of Collaboration was signed on July 21, 2022, between Automobile Corporation of Pakistan and SOSTTI to provide two weeks of training/internship for SOSTTI Welding students.</p>
+          </div>
+        </article>
+
+        <!-- Event 12: Aug 2022 -->
+        <article class="event-card reveal" data-cat="community">
+          <div class="ev-gallery g2">
+            <img src="../images/events/08012022-1.webp" alt="Indus Hospital Blood Donation Aug 2022" loading="lazy">
+            <img src="../images/events/08012022-2.webp" alt="Indus Hospital Blood Donation Aug 2022" loading="lazy">
+          </div>
+          <div class="ev-body">
+            <div class="ev-meta"><span class="ev-date">Aug 2022</span><span class="ev-cat">Community</span></div>
+            <h3>Indus Hospital Blood Donation Camp</h3>
+            <p>Indus Hospital held a blood donation camp at SOSTTI on August 1, 2022. A large number of students volunteered; 17 students and staff were selected as per Indus Hospital criteria and donated blood.</p>
+          </div>
+        </article>
+
+        <!-- Event 11: Sep 2022 -->
+        <article class="event-card reveal" data-cat="awareness">
+          <div class="ev-gallery g2">
+            <img src="../images/events/19092022-1.webp" alt="CEO International Skills Mark Visit 2022" loading="lazy">
+            <img src="../images/events/19092022-2.webp" alt="CEO International Skills Mark Visit 2022" loading="lazy">
+          </div>
+          <div class="ev-body">
+            <div class="ev-meta"><span class="ev-date">Sep 2022</span><span class="ev-cat">Awareness</span></div>
+            <h3>CEO International Skills Mark Visited SOSTTI</h3>
+            <p>CEO International Skills Mark visited SOSTTI on September 19, 2022 and gave a presentation to the Chairman about International Certification for students. The CEO was asked to reduce training costs for SOSTTI students.</p>
+          </div>
+        </article>
+
+        <!-- Event 10: Sep 2022 -->
+        <article class="event-card reveal" data-cat="awareness">
+          <div class="ev-gallery g2">
+            <img src="../images/events/26092022-1.webp" alt="CSR PARCO Visit 2022" loading="lazy">
+            <img src="../images/events/26092022-2.webp" alt="CSR PARCO Visit 2022" loading="lazy">
+          </div>
+          <div class="ev-body">
+            <div class="ev-meta"><span class="ev-date">Sep 2022</span><span class="ev-cat">Awareness</span></div>
+            <h3>CSR PARCO Visited SOSTTI</h3>
+            <p>CSR PARCO, Ms Aiman Ali, visited SOSTTI on September 26, 2022 and briefed the Principal about the new funding policy of PARCO. SOSTTI has forwarded a proposal to PARCO accordingly.</p>
+          </div>
+        </article>
+
+        <!-- Event 9: Jun 2022 -->
+        <article class="event-card reveal" data-cat="community">
+          <div class="ev-gallery g2">
+            <img src="../images/events/22062022-1.webp" alt="MOU Shell Pakistan 2022" loading="lazy">
+            <img src="../images/events/22062022-2.webp" alt="MOU Shell Pakistan 2022" loading="lazy">
+          </div>
+          <div class="ev-body">
+            <div class="ev-meta"><span class="ev-date">Jun 2022</span><span class="ev-cat">Community</span></div>
+            <h3>MOU Signed Between SOSTTI and Shell Pakistan Limited</h3>
+            <p>An MOU was signed between SOSTTI and Shell Pakistan Limited on June 22, 2022, to train 17 Shell employees in various technical and computer trades. This marks a major achievement for SOSTTI, selected by Shell from among several institutes in Karachi.</p>
+          </div>
+        </article>
+
+        <!-- Event 8: Jun 2022 -->
+        <article class="event-card reveal" data-cat="training">
+          <div class="ev-gallery g3">
+            <img src="../images/events/23062022-1.webp" alt="Atlas Honda Workshop Afghan Refugees 2022" loading="lazy">
+            <img src="../images/events/23062022-2.webp" alt="Atlas Honda Workshop Afghan Refugees 2022" loading="lazy">
+            <img src="../images/events/23062022-3.webp" alt="Atlas Honda Workshop Afghan Refugees 2022" loading="lazy">
+          </div>
+          <div class="ev-body">
+            <div class="ev-meta"><span class="ev-date">Jun 2022</span><span class="ev-cat">Training</span></div>
+            <h3>Training Workshop by Atlas Honda</h3>
+            <p>Atlas Honda held a workshop on June 23, 2022, for 25 Afghan Refugee students sponsored by NAVTTC at SOSTTI. Atlas Honda also regularly supports SOSTTI with motorcycles, tools, and equipment for Motorcycle Mechanic student training.</p>
+          </div>
+        </article>
+
+        <!-- Event 7: May 2022 -->
+        <article class="event-card reveal" data-cat="ceremony">
+          <div class="ev-gallery g2">
+            <img src="../images/events/10052022-4.webp" alt="Toolkit Distribution NAVTTC UNHCR Batch III" loading="lazy">
+            <img src="../images/events/10052022-5.webp" alt="Toolkit Distribution NAVTTC UNHCR Batch III" loading="lazy">
+          </div>
+          <div class="ev-body">
+            <div class="ev-meta"><span class="ev-date">May 2022</span><span class="ev-cat">Ceremony</span></div>
+            <h3>Toolkit Distribution Ceremony — NAVTTC/UNHCR Batch-III</h3>
+            <p>Tool kits distribution ceremony for 36 students of NAVTTC/UNHCR Batch-III Afghan Refugees was held on May 10, 2022. Director General NAVTTC (Sindh) Mrs Nabila Umer and Chairman SOSTTI Mr Sanaullah Qureshi distributed tool kits.</p>
+          </div>
+        </article>
+
+        <!-- Event 6: May 2022 -->
+        <article class="event-card reveal" data-cat="ceremony">
+          <div class="ev-gallery g3">
+            <img src="../images/events/10052022-1.webp" alt="Certificate Distribution High-Tech Batch II 2022" loading="lazy">
+            <img src="../images/events/10052022-2.webp" alt="Certificate Distribution High-Tech Batch II 2022" loading="lazy">
+            <img src="../images/events/10052022-3.webp" alt="Certificate Distribution High-Tech Batch II 2022" loading="lazy">
+          </div>
+          <div class="ev-body">
+            <div class="ev-meta"><span class="ev-date">May 2022</span><span class="ev-cat">Ceremony</span></div>
+            <h3>Certificate Distribution Ceremony — High-Tech Batch-II</h3>
+            <p>Mrs Nabeela Umer, Director General NAVTTC Sindh, was Chief Guest and distributed tool kits and certificates to students. Chairman Mr Sanaullah Qureshi, Co-Chairman Mr Yacoonbali G. Zamindar and Admiral Syed A. Bagar were also present.</p>
+          </div>
+        </article>
+
+        <!-- Event 5: Apr 2022 -->
+        <article class="event-card reveal" data-cat="community">
+          <div class="ev-gallery g2">
+            <img src="../images/events/04012022-1.webp" alt="Liaison Systems Limited 2022" loading="lazy">
+            <img src="../images/events/04012022-2.webp" alt="Liaison Systems Limited 2022" loading="lazy">
+          </div>
+          <div class="ev-body">
+            <div class="ev-meta"><span class="ev-date">Apr 2022</span><span class="ev-cat">Community</span></div>
+            <h3>Liaison — Systems Limited</h3>
+            <p>Ms Naureen Anwar, VP-Special Projects of Systems Limited, visited SOSTTI on April 1, 2022. Systems Limited has agreed to provide internship/OJT to SOSTTI students of computer courses and also train SOSTTI Instructors.</p>
+          </div>
+        </article>
+
+        <!-- Event 4: Apr 2019 -->
+        <article class="event-card reveal" data-cat="community">
+          <div class="ev-gallery g2">
+            <img src="../images/events/29042019-1.webp" alt="Blood Donation Camp 2019" loading="lazy">
+            <img src="../images/events/29042019-2.webp" alt="Blood Donation Camp 2019" loading="lazy">
+          </div>
+          <div class="ev-body">
+            <div class="ev-meta"><span class="ev-date">Apr 2019</span><span class="ev-cat">Community</span></div>
+            <h3>Blood Donation Camp</h3>
+            <p>A blood donation camp was set up at SOSTTI by Indus Hospital on April 29, 2019. 47 students volunteered to donate blood. After testing, 25 students were allowed to donate.</p>
+          </div>
+        </article>
+
+        <!-- Event 3: Dec 2018 -->
+        <article class="event-card reveal" data-cat="community">
+          <div class="ev-gallery g1">
+            <img src="../images/events/12122018.webp" alt="Provincial Skill Competition Dec 2018" loading="lazy">
+          </div>
+          <div class="ev-body">
+            <div class="ev-meta"><span class="ev-date">Dec 2018</span><span class="ev-cat">Community</span></div>
+            <h3>Provincial Skill Competition</h3>
+            <p>NAVTTC provincial skill competition was held at Aman Tech on December 12, 2018. Governor Sindh Mr Imran Ismail was Chief Guest. Mr. Tayyab of Industrial Electrician course stood first and received Rs.75,000 and a merit certificate from the Governor.</p>
+          </div>
+        </article>
+
+        <!-- Event 2: Apr 2018 -->
+        <article class="event-card reveal" data-cat="community">
+          <div class="ev-gallery g1">
+            <img src="../images/events/30042018.webp" alt="Provincial Skill Competition Apr 2018" loading="lazy">
+          </div>
+          <div class="ev-body">
+            <div class="ev-meta"><span class="ev-date">Apr 2018</span><span class="ev-cat">Community</span></div>
+            <h3>Provincial Skill Competition</h3>
+            <p>NAVTTC provincial skill competition was held at Aman Tech and Marriott Hotel on April 30, 2018. Chief Minister Mr. Murad Ali Shah was the Chief Guest. Mr. Junaid (Industrial Electrician) and Mr. Muhammad Ali (Automobile Mechanic) both stood first.</p>
+          </div>
+        </article>
+
+        <!-- Event 1: Oct 2017 -->
+        <article class="event-card reveal" data-cat="community">
+          <div class="ev-gallery g1">
+            <img src="../images/events/23102017.webp" alt="National Skill Competition 2017" loading="lazy">
+          </div>
+          <div class="ev-body">
+            <div class="ev-meta"><span class="ev-date">Oct 2017</span><span class="ev-cat">Community</span></div>
+            <h3>National Skill Competition</h3>
+            <p>Mr. Shah Hussain, SOSTTI automobile student, obtained first position in the NAVTTC National Skill Competition on October 23, 2017 in Islamabad. He received a cheque of Rs.100,000 from the President of Pakistan on October 30, 2017 at the Presidency.</p>
           </div>
         </article>
 
@@ -233,16 +847,17 @@
   <div id="footer-container"></div>
   <script src="../js/core.js"></script>
   <script>
-    document.querySelectorAll('.ev-tag').forEach(function(btn){
-      btn.addEventListener('click',function(){
-        document.querySelectorAll('.ev-tag').forEach(function(b){b.classList.remove('active');});
+    document.querySelectorAll('.ev-tag').forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        document.querySelectorAll('.ev-tag').forEach(function (b) { b.classList.remove('active'); });
         btn.classList.add('active');
         var f = btn.dataset.filter;
-        document.querySelectorAll('.event-card').forEach(function(c){
-          c.style.display = (f==='all'||c.dataset.cat===f)?'':'none';
+        document.querySelectorAll('.event-card').forEach(function (c) {
+          c.style.display = (f === 'all' || c.dataset.cat === f) ? '' : 'none';
         });
       });
     });
   </script>
 </body>
+
 </html>

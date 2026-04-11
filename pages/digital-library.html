@@ -1,10 +1,13 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Digital Library — SOSTTI</title>
+  <title>Digital Library | SOSTTI</title>
   <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
+  <link rel="canonical" href="https://sostti.org/pages/digital-library">
+  <meta name="description" content="SOSTTI digital library — access study materials, course notes, and technical resources for all programs offered at the institute.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preconnect" href="https://cdnjs.cloudflare.com">
@@ -27,11 +30,13 @@
       z-index: 10;
       transition: var(--t);
     }
+
     .library-search-wrap:focus-within {
       box-shadow: var(--sh-lg);
       border-color: var(--sapphire);
       transform: translateY(-2px);
     }
+
     .library-search-input {
       flex: 1;
       border: none;
@@ -42,6 +47,7 @@
       outline: none;
       padding: 12px 0;
     }
+
     .library-search-btn {
       width: 48px;
       height: 48px;
@@ -54,6 +60,7 @@
       font-size: 1.1rem;
       transition: var(--t-fast);
     }
+
     .library-search-btn:hover {
       background: var(--sapphire-dk);
       transform: scale(1.05);
@@ -66,6 +73,7 @@
       gap: 10px;
       margin-bottom: 48px;
     }
+
     .filter-chip {
       padding: 8px 18px;
       background: var(--surface);
@@ -78,11 +86,13 @@
       transition: var(--t-fast);
       white-space: nowrap;
     }
+
     .filter-chip:hover {
       border-color: var(--sapphire);
       color: var(--sapphire);
       background: var(--sapphire-lt);
     }
+
     .filter-chip.active {
       background: var(--sapphire);
       border-color: var(--sapphire);
@@ -95,6 +105,7 @@
       grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
       gap: 24px;
     }
+
     .resource-card {
       background: var(--surface);
       border: 1px solid var(--bdr);
@@ -106,11 +117,13 @@
       gap: 16px;
       box-shadow: var(--sh-sm);
     }
+
     .resource-card:hover {
       transform: translateY(-6px);
       box-shadow: var(--sh-lg);
       border-color: var(--sapphire-gl);
     }
+
     .resource-icon {
       width: 52px;
       height: 52px;
@@ -122,6 +135,7 @@
       justify-content: center;
       font-size: 1.5rem;
     }
+
     .resource-info h3 {
       font-size: 1.05rem;
       margin-bottom: 6px;
@@ -132,6 +146,7 @@
       overflow: hidden;
       height: 2.6em;
     }
+
     .resource-tag {
       font-size: .7rem;
       font-weight: 800;
@@ -144,12 +159,14 @@
       display: inline-block;
       margin-bottom: 8px;
     }
+
     .resource-footer {
       margin-top: auto;
       display: flex;
       align-items: center;
       justify-content: space-between;
     }
+
     .btn-download {
       display: flex;
       align-items: center;
@@ -159,6 +176,7 @@
       color: var(--sapphire);
       transition: var(--t-fast);
     }
+
     .btn-download:hover {
       gap: 12px;
     }
@@ -176,6 +194,7 @@
       text-align: center;
       padding: 60px 0;
     }
+
     .no-results i {
       font-size: 3rem;
       color: var(--bdr);
@@ -187,6 +206,7 @@
         margin-top: -30px;
         padding-left: 18px;
       }
+
       .filter-chips {
         justify-content: flex-start;
         overflow-x: auto;
@@ -194,19 +214,22 @@
         flex-wrap: nowrap;
         -webkit-overflow-scrolling: touch;
       }
+
       .filter-chip {
         flex-shrink: 0;
       }
     }
   </style>
-  <script>(function(){var s=localStorage.getItem("sostti-theme");if(s==="dark"||(!s&&window.matchMedia("(prefers-color-scheme:dark)").matches))document.documentElement.setAttribute("data-theme","dark");})();</script>
+  <script>(function () { var s = localStorage.getItem("sostti-theme"); if (s === "dark" || (!s && window.matchMedia("(prefers-color-scheme:dark)").matches)) document.documentElement.setAttribute("data-theme", "dark"); })();</script>
 </head>
+
 <body>
   <div id="header-container"></div>
 
   <section class="page-hero">
     <div class="container">
-      <span class="eyebrow" style="background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.2);color:rgba(255,255,255,1);">
+      <span class="eyebrow"
+        style="background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.2);color:rgba(255,255,255,1);">
         <i class="fas fa-book-open"></i> Open Knowledge
       </span>
       <h1>SOSTTI Digital Library</h1>
@@ -216,11 +239,12 @@
 
   <section class="content-section" style="padding-top: 0;">
     <div class="container">
-      
+
       <!-- Search Box -->
       <div class="library-search-wrap reveal">
         <i class="fas fa-search" style="color:var(--text-3);"></i>
-        <input type="text" id="library-search" class="library-search-input" placeholder="Search books e.g., Python, Welding, Solar, Electronics..." aria-label="Search resources">
+        <input type="text" id="library-search" class="library-search-input"
+          placeholder="Search books e.g., Python, Welding, Solar, Electronics..." aria-label="Search resources">
         <button id="library-search-btn" class="library-search-btn" aria-label="Submit search">
           <i class="fas fa-arrow-right"></i>
         </button>
@@ -266,5 +290,7 @@
   <!-- Then the application logic -->
   <script src="../js/digital-library.js"></script>
 </body>
+
 </html>
+
 </html>

@@ -30,7 +30,7 @@
         el.innerHTML = html;
 
         // Fix absolute-ish paths starting with / if a prefix exists
-        if (prefix !== undefined) {
+        if (prefix) {
           el.querySelectorAll('a[href^="/"], img[src^="/"], source[src^="/"]').forEach(function (node) {
             var attr = (node.tagName === 'A') ? 'href' : 'src';
             var val = node.getAttribute(attr);
@@ -343,33 +343,124 @@
   }
 
   /* ══════════════════════════════════════════════════════════
-     6. CERTIFICATE MODAL
+     6. CERTIFICATE MODAL (Enhanced with Zoom)
   ══════════════════════════════════════════════════════════ */
   function initCertModal() {
     var overlay = document.createElement('div');
     overlay.className = 'cert-modal-overlay';
     overlay.id = 'cert-modal-overlay';
     overlay.innerHTML = [
-      '<div class="cert-modal" style="position:relative">',
+      '<div class="cert-modal" id="cert-modal-box">',
       '<button class="cert-modal-close" id="cert-modal-close" aria-label="Close">×</button>',
-      '<img id="cert-modal-img" src="" alt="Certificate">',
+      '<div class="cert-modal-container" id="cert-img-container">',
+      '<div class="cert-modal-protection" id="cert-modal-protection"></div>',
+      '<canvas id="cert-modal-canvas"></canvas>',
+      '</div>',
+      '<div class="cert-modal-controls">',
+      '<button class="cert-ctrl-btn" id="cert-zoom-in" title="Zoom In"><i class="fas fa-search-plus"></i></button>',
+      '<button class="cert-ctrl-btn" id="cert-zoom-out" title="Zoom Out"><i class="fas fa-search-minus"></i></button>',
+      '<button class="cert-ctrl-btn" id="cert-zoom-reset" title="Reset Zoom"><i class="fas fa-sync-alt"></i></button>',
+      '</div>',
+      '<div class="cert-privacy-notice"><i class="fas fa-user-shield"></i> Privacy Protected: Direct download is restricted.</div>',
       '</div>'
     ].join('');
     document.body.appendChild(overlay);
 
+    var canvas = document.getElementById('cert-modal-canvas');
+    var ctx = canvas.getContext('2d');
+    var prot = document.getElementById('cert-modal-protection');
+    var zoomLevel = 1;
+    var currentImg = null;
+
+    function updateZoom() {
+      if (!canvas) return;
+      canvas.style.transform = 'scale(' + zoomLevel + ')';
+      // Sync protection div size with canvas
+      setTimeout(function() {
+        if (prot && canvas) {
+          prot.style.width = (canvas.offsetWidth * zoomLevel) + 'px';
+          prot.style.height = (canvas.offsetHeight * zoomLevel) + 'px';
+        }
+      }, 50);
+    }
+
+    function drawImageToCanvas(src) {
+      var imgObj = new Image();
+      imgObj.crossOrigin = "anonymous";
+      imgObj.onload = function() {
+        canvas.width = imgObj.width;
+        canvas.height = imgObj.height;
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.drawImage(imgObj, 0, 0);
+        
+        // Add a subtle watermark
+        ctx.font = "bold " + (canvas.width / 20) + "px Arial";
+        ctx.fillStyle = "rgba(255, 255, 255, 0.15)";
+        ctx.textAlign = "center";
+        ctx.fillText("SOS TECHNICAL TRAINING INSTITUTE - PRIVACY PROTECTED", canvas.width / 2, canvas.height / 2);
+        
+        currentImg = imgObj;
+        updateZoom();
+      };
+      imgObj.src = src;
+    }
+
+    function preventDownload(e) {
+      if (!overlay.classList.contains('open')) return;
+      
+      // Prevent Print (Ctrl+P), Save (Ctrl+S), Source (Ctrl+U)
+      if (e.ctrlKey && (e.key === 'p' || e.key === 's' || e.key === 'u' || e.key === 'c')) {
+        e.preventDefault();
+        return false;
+      }
+
+      // Prevent DevTools (F12, Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+Shift+C)
+      if (e.key === 'F12' || (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'J' || e.key === 'C' || e.key === 'i' || e.key === 'j' || e.key === 'c'))) {
+        e.preventDefault();
+        return false;
+      }
+    }
+
     document.addEventListener('click', function (e) {
       var btn = e.target.closest('[data-certificate]');
       if (btn) {
-        document.getElementById('cert-modal-img').src = btn.dataset.certificate;
+        zoomLevel = 1;
+        drawImageToCanvas(btn.dataset.certificate);
         overlay.classList.add('open');
+        document.body.style.overflow = 'hidden'; // Lock scroll
+        window.addEventListener('keydown', preventDownload);
       }
     });
 
-    document.getElementById('cert-modal-close').addEventListener('click', function () {
+    function close() {
       overlay.classList.remove('open');
-    });
+      document.body.style.overflow = '';
+      window.removeEventListener('keydown', preventDownload);
+      // Clear canvas memory
+      setTimeout(function() { 
+        if (ctx) ctx.clearRect(0, 0, canvas.width, canvas.height);
+        currentImg = null;
+      }, 400);
+    }
+
+    document.getElementById('cert-modal-close').addEventListener('click', close);
     overlay.addEventListener('click', function (e) {
-      if (e.target === overlay) overlay.classList.remove('open');
+      if (e.target === overlay) close();
+    });
+
+    // Zoom Controls
+    document.getElementById('cert-zoom-in').addEventListener('click', function(e) {
+      e.stopPropagation();
+      if (zoomLevel < 3) { zoomLevel += 0.2; updateZoom(); }
+    });
+    document.getElementById('cert-zoom-out').addEventListener('click', function(e) {
+      e.stopPropagation();
+      if (zoomLevel > 0.6) { zoomLevel -= 0.2; updateZoom(); }
+    });
+    document.getElementById('cert-zoom-reset').addEventListener('click', function(e) {
+      e.stopPropagation();
+      zoomLevel = 1;
+      updateZoom();
     });
   }
 
@@ -536,9 +627,19 @@
         });
       }
 
-      video.addEventListener('ended', function () {
+      video.addEventListener('play', function() {
+        if (playBtn) playBtn.innerHTML = '<i class="fas fa-pause"></i>';
+      });
+      video.addEventListener('pause', function() {
         if (playBtn) playBtn.innerHTML = '<i class="fas fa-play"></i>';
       });
+
+      video.addEventListener('volumechange', updateMuteIcon);
+
+      // Initial sync for autoplay/muted states
+      updateMuteIcon();
+      if (volumeSlider) volumeSlider.value = video.muted ? 0 : video.volume;
+      if (!video.paused && playBtn) playBtn.innerHTML = '<i class="fas fa-pause"></i>';
 
       // If already loaded or no preload="none", remove loading class
       if (video.readyState >= 1) {
@@ -557,7 +658,7 @@
     loader.className = 'sostti-preloader';
     loader.id = 'sostti-preloader';
     loader.innerHTML = [
-      '<img class="preloader-logo" src="' + prefix + 'images/sos-logo.png" alt="SOSTTI Logo">',
+      '<img class="preloader-logo" src="' + prefix + 'images/sos-logo.webp" alt="SOSTTI Logo">',
       '<div class="preloader-spin"></div>'
     ].join('');
     document.body.appendChild(loader);
@@ -621,8 +722,25 @@
           if (prefix && href.indexOf(prefix) === 0) {
             normalizedHref = href.substring(prefix.length);
           }
-          if (currentPath.endsWith(normalizedHref) || (normalizedHref === '/' && currentPath.endsWith('index.html'))) {
+          if (normalizedHref && currentPath.endsWith(normalizedHref)) {
             a.classList.add('active');
+          } else if ((normalizedHref === '' || normalizedHref === '/') && (currentPath.endsWith('/') || currentPath.endsWith('index.html'))) {
+            a.classList.add('active');
+          }
+
+          // ── Parent Dropdown Handling ────────────────────────
+          if (a.classList.contains('active')) {
+            var dropdown = a.closest('.dropdown');
+            if (dropdown) {
+              var trigger = dropdown.querySelector('a[role="button"]');
+              if (trigger) trigger.classList.add('active');
+            }
+            // Handle nested items (like Computer/Technical courses)
+            var nested = a.closest('.nested-dropdown-content');
+            if (nested) {
+              var nestedTrigger = nested.previousElementSibling;
+              if (nestedTrigger) nestedTrigger.classList.add('active');
+            }
           }
         }
       });

@@ -1,5 +1,5 @@
-/**
- * announcement-manager.js Ã¢â‚¬â€ SOSTTI Ad Popup Carousel
+﻿/**
+ * announcement-manager.js — SOSTTI Ad Popup Carousel
  * Shows admission ad images in a popup after page load.
  * To add/remove ads: edit the this.ads array below.
  * Supports: multi-image carousel, swipe on mobile, keyboard nav.
@@ -9,10 +9,8 @@
 
     var ImageAdCarousel = (function () {
         function ImageAdCarousel() {
-            /* ── DEFAULT ADS (Fallback) ── */
             this.ads = [
-                'images/ads/ad1.jpg',
-                'images/ads/ad2.jpg'
+                'images/ads/EnglishLanguage.webp'
             ];
 
             /* Auto-detect page depth based on path markers */
@@ -25,7 +23,7 @@
             }
 
             this.applyLink = 'https://docs.google.com/forms/d/e/1FAIpQLSdnJItkIMyt3SGNaDeTBDcMTBKNeKJ4lC8cx3wxSOvjpciX4g/viewform?usp=header';
-            this.delay = 3500; /* ms before popup appears */
+            this.delay = 1200; /* ms before popup appears */
             this.current = 0;
             this.init();
         }
@@ -137,7 +135,7 @@
                 '    <button class="ad-close-btn" aria-label="Close">&#215;</button>',
                 multi ? '<button class="ad-nav-btn ad-prev-btn" aria-label="Previous">&#8249;</button>' : '',
                 multi ? '<button class="ad-nav-btn ad-next-btn" aria-label="Next">&#8250;</button>' : '',
-                '    <img id="ad-carousel-img" src="' + this.ads[0] + '" alt="Admission Advertisement">',
+                '    <img id="ad-carousel-img" fetchpriority="high" src="' + this.ads[0] + '" alt="Admission Advertisement">',
                 multi ? '<div class="ad-dots-bar">' + dots + '</div>' : '',
                 multi ? '<div class="ad-counter-lbl" id="ad-counter">1/' + this.ads.length + '</div>' : '',
                 '    <a class="ad-cta-bar" id="adCtaLink" href="' + this.applyLink + '" target="_blank" rel="noopener">',
@@ -182,7 +180,7 @@
                 if (e.key === 'ArrowRight') go(1);
             }
 
-            /* Click image Ã¢â€ â€™ apply link */
+            /* Click image â€”> apply link */
             img.addEventListener('click', function () {
                 window.open(self.applyLink, '_blank', 'noopener');
             });

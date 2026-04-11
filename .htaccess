@@ -1,5 +1,5 @@
 # ============================================================
-# SOSTTI Production .htaccess — Apache 2.4+
+# SOSTTI Production .htaccess - Apache 2.4+
 # Optimized for Performance, Security, and Clean URLs
 # ============================================================
 
@@ -15,6 +15,11 @@ AddDefaultCharset UTF-8
     Header set X-XSS-Protection "1; mode=block"
     Header set Referrer-Policy "strict-origin-when-cross-origin"
     Header set Content-Security-Policy "upgrade-insecure-requests"
+</IfModule>
+
+# MIME Types (Ensure WebP is recognized)
+<IfModule mod_mime.c>
+    AddType image/webp .webp
 </IfModule>
 
 
@@ -83,9 +88,9 @@ AddDefaultCharset UTF-8
     RewriteEngine On
     RewriteBase /
 
-    # Redirect to HTTPS (Uncomment when live and SSL is enabled)
-    # RewriteCond %{HTTPS} off
-    # RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+    # Redirect to HTTPS
+    RewriteCond %{HTTPS} off
+    RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
 
     # Remove .html extension from links (Internal Redirect)
     # If the user visits /page.html, redirect to /page

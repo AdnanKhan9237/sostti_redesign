@@ -1,46 +1,142 @@
 <!DOCTYPE html>
 <html lang="en" data-theme="">
+
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Contact Us — SOSTTI</title>
+  <title>Contact Us | SOSTTI</title>
   <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
-  <meta name="description" content="Contact SOS Technical Training Institute, Karachi. Phone, email, address and map.">
+  <link rel="canonical" href="https://sostti.org/pages/about-contact">
+  <meta name="description" content="Contact SOS Technical Training Institute in Karachi — get in touch via phone, email, or visit our campus for admission inquiries and program details.">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="preconnect" href="https://cdnjs.cloudflare.com">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <link rel="stylesheet" href="../assets/style.css">
-  <script>(function(){var s=localStorage.getItem('sostti-theme');if(s==='dark'||(!s&&window.matchMedia('(prefers-color-scheme:dark)').matches))document.documentElement.setAttribute('data-theme','dark');})();</script>
+  <script>(function () { var s = localStorage.getItem('sostti-theme'); if (s === 'dark' || (!s && window.matchMedia('(prefers-color-scheme:dark)').matches)) document.documentElement.setAttribute('data-theme', 'dark'); })();</script>
   <style>
-    .contact-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:20px; margin-bottom:48px; }
-    .c-card { background:var(--surface); border:1px solid var(--bdr); border-radius:var(--r-lg); padding:28px; text-align:center; box-shadow:var(--sh-sm); transition:var(--t); }
-    .c-card:hover { box-shadow:var(--sh-md); transform:translateY(-3px); }
-    .c-icon { width:56px; height:56px; border-radius:50%; background:var(--sapphire-lt); color:var(--sapphire); font-size:1.4rem; display:flex; align-items:center; justify-content:center; margin:0 auto 16px; }
-    .c-card h3 { font-size:.95rem; font-weight:800; margin-bottom:10px; }
-    .c-card p, .c-card a { font-size:.88rem; color:var(--text-2); line-height:1.7; }
-    .c-card a:hover { color:var(--sapphire); }
-    .contact-form-card { background:var(--surface); border:1px solid var(--bdr); border-radius:var(--r-lg); padding:40px; box-shadow:var(--sh-sm); max-width:700px; margin:0 auto; }
-    .form-row { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
-    .form-group { margin-bottom:18px; }
-    .form-group label { display:block; margin-bottom:6px; font-size:.84rem; font-weight:700; color:var(--text); }
-    .form-group input, .form-group textarea, .form-group select {
-      width:100%; padding:10px 14px;
-      background:var(--bg); border:1.5px solid var(--bdr);
-      border-radius:var(--r-sm); font-size:.88rem; color:var(--text);
-      font-family:var(--f-body); outline:none; transition:border .2s;
+    .contact-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 20px;
+      margin-bottom: 48px;
     }
-    .form-group input:focus, .form-group textarea:focus, .form-group select:focus { border-color:var(--sapphire); }
-    .form-group textarea { resize:vertical; min-height:120px; }
-    @media(max-width:576px){ .form-row{grid-template-columns:1fr;} }
+
+    .c-card {
+      background: var(--surface);
+      border: 1px solid var(--bdr);
+      border-radius: var(--r-lg);
+      padding: 28px;
+      text-align: center;
+      box-shadow: var(--sh-sm);
+      transition: var(--t);
+    }
+
+    .c-card:hover {
+      box-shadow: var(--sh-md);
+      transform: translateY(-3px);
+    }
+
+    .c-icon {
+      width: 56px;
+      height: 56px;
+      border-radius: 50%;
+      background: var(--sapphire-lt);
+      color: var(--sapphire);
+      font-size: 1.4rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin: 0 auto 16px;
+    }
+
+    .c-card h3 {
+      font-size: .95rem;
+      font-weight: 800;
+      margin-bottom: 10px;
+    }
+
+    .c-card p,
+    .c-card a {
+      font-size: .88rem;
+      color: var(--text-2);
+      line-height: 1.7;
+    }
+
+    .c-card a:hover {
+      color: var(--sapphire);
+    }
+
+    .contact-form-card {
+      background: var(--surface);
+      border: 1px solid var(--bdr);
+      border-radius: var(--r-lg);
+      padding: 40px;
+      box-shadow: var(--sh-sm);
+      max-width: 700px;
+      margin: 0 auto;
+    }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+    }
+
+    .form-group {
+      margin-bottom: 18px;
+    }
+
+    .form-group label {
+      display: block;
+      margin-bottom: 6px;
+      font-size: .84rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width: 100%;
+      padding: 10px 14px;
+      background: var(--bg);
+      border: 1.5px solid var(--bdr);
+      border-radius: var(--r-sm);
+      font-size: .88rem;
+      color: var(--text);
+      font-family: var(--f-body);
+      outline: none;
+      transition: border .2s;
+    }
+
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+      border-color: var(--sapphire);
+    }
+
+    .form-group textarea {
+      resize: vertical;
+      min-height: 120px;
+    }
+
+    @media(max-width:576px) {
+      .form-row {
+        grid-template-columns: 1fr;
+      }
+    }
   </style>
 </head>
+
 <body>
   <div id="header-container"></div>
 
   <section class="page-hero">
     <div class="container">
-      <span class="eyebrow" style="background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.2);color:rgba(255,255,255,.85);"><i class="fas fa-envelope"></i> Get in Touch</span>
+      <span class="eyebrow"
+        style="background:rgba(255,255,255,.1);border-color:rgba(255,255,255,.2);color:rgba(255,255,255,.85);"><i
+          class="fas fa-envelope"></i> Get in Touch</span>
       <h1>Contact Us</h1>
       <p>We're here to answer your questions about admissions, courses, and programs.</p>
     </div>
@@ -58,7 +154,7 @@
         <div class="c-card reveal">
           <div class="c-icon"><i class="fas fa-phone"></i></div>
           <h3>Phone Numbers</h3>
-          <p><a href="tel:+923332247494">+92 333 2247494</a><br><a href="tel:+922135090167">+92 21 35090167</a></p>
+          <p><a href="tel:+923332247494">+92 333 2247494</a></p>
         </div>
         <div class="c-card reveal">
           <div class="c-icon"><i class="fas fa-envelope"></i></div>
@@ -115,7 +211,8 @@
           <label for="contact-msg">Message *</label>
           <textarea id="contact-msg" placeholder="Write your message here…" required></textarea>
         </div>
-        <a href="https://wa.me/923332247494?text=Hello%20SOSTTI%2C%20I%20have%20an%20enquiry" target="_blank" rel="noopener" class="btn-primary" style="display:inline-flex;gap:8px;align-items:center;">
+        <a href="https://wa.me/923332247494?text=Hello%20SOSTTI%2C%20I%20have%20an%20enquiry" target="_blank"
+          rel="noopener" class="btn-primary" style="display:inline-flex;gap:8px;align-items:center;">
           <i class="fab fa-whatsapp"></i> Send via WhatsApp
         </a>
         <p style="font-size:.78rem;color:var(--text-3);margin-top:10px;">Or call us directly for fastest response.</p>
@@ -127,4 +224,5 @@
   <div id="footer-container"></div>
   <script src="../js/core.js"></script>
 </body>
+
 </html>
