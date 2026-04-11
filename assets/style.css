@@ -760,8 +760,8 @@ header .container {
 /* ── ANIMATION CONTROL PANEL (ULTRA COMPACT) ────────────────── */
 .motion-ctrl {
   position: fixed;
-  bottom: 22px;
-  left: 80px; /* Positioned to the right of theme-pill */
+  bottom: 80px; /* Positioned above theme-pill (22px bottom + 48px height + 10px gap) */
+  left: 22px;
   z-index: 9990;
   padding: 0 12px;
   background: var(--surface);
@@ -832,8 +832,8 @@ input:checked + .motion-slider:before {
 /* Media Queries for sizing */
 @media (max-width: 576px) {
   .motion-ctrl {
-    bottom: 20px;
-    left: 68px; /* Tighter gap on mobile */
+    bottom: 74px; /* Above theme-pill on mobile (20px bottom + 44px? height + 10px gap) */
+    left: 20px;
     height: 38px; /* Shorter on mobile */
     padding: 6px 10px;
   }
@@ -4318,6 +4318,13 @@ body.ticker-closed {
     font-size: 1rem;
     left: 14px;
     bottom: 14px;
+  }
+
+  .motion-ctrl {
+    bottom: 64px; /* Stacked above theme-pill (14 + 42 + 8 gap) */
+    left: 14px;
+    height: 34px;
+    padding: 4px 8px;
   }
 
   /* ── Popups ── */
