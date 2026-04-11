@@ -1,4 +1,4 @@
-﻿/**
+/**
  * announcement-manager.js — SOSTTI Ad Popup Carousel
  * Shows admission ad images in a popup after page load.
  * To add/remove ads: edit the this.ads array below.
@@ -9,9 +9,7 @@
 
     var ImageAdCarousel = (function () {
         function ImageAdCarousel() {
-            this.ads = [
-                'images/ads/EnglishLanguage.webp'
-            ];
+            this.ads = [];
 
             /* Auto-detect page depth based on path markers */
             var path = window.location.pathname;
@@ -53,6 +51,8 @@
         };
 
         ImageAdCarousel.prototype.start = function () {
+            if (this.ads.length === 0) return;
+            
             this.createStyles();
             this.createHTML();
             this.bindEvents();

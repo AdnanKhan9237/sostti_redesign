@@ -72,6 +72,11 @@
   --h-txt: #0d1b2a;
   --h-txt-hvr: #139FDA;
 
+  /* Brand Gradient (Vector Ocean Waves) */
+  --bg-base: #eaf1f8;
+  --svg-wave-1: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1000 1000' preserveAspectRatio='none'%3E%3Cpath fill='%2360a5fa' opacity='0.3' d='M0 400 Q250 200 500 400 T1000 400 L1000 1000 L0 1000 Z'/%3E%3C/svg%3E");
+  --svg-wave-2: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1000 1000' preserveAspectRatio='none'%3E%3Cpath fill='%232563eb' opacity='0.25' d='M0 600 Q250 400 500 600 T1000 600 L1000 1000 L0 1000 Z'/%3E%3C/svg%3E");
+
   /* Body offset — header is fixed, push content down.
      These are updated dynamically by JS (setOffset).
      Base values: 70px navbar + 40px ticker = 110px */
@@ -118,6 +123,11 @@
   --h-bg-s: rgba(8, 15, 24, .98);
   --h-txt: rgba(220, 233, 246, .85);
   --h-txt-hvr: #4d9eff;
+
+  /* Brand Gradient (Vector Ocean Waves) */
+  --bg-base: #020617;
+  --svg-wave-1: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1000 1000' preserveAspectRatio='none'%3E%3Cpath fill='%231e3a8a' opacity='0.7' d='M0 400 Q250 200 500 400 T1000 400 L1000 1000 L0 1000 Z'/%3E%3C/svg%3E");
+  --svg-wave-2: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 1000 1000' preserveAspectRatio='none'%3E%3Cpath fill='%23172554' opacity='0.8' d='M0 600 Q250 400 500 600 T1000 600 L1000 1000 L0 1000 Z'/%3E%3C/svg%3E");
 }
 
 /* ── SMOOTH TRANSITIONS ─────────────────────────────────────── */
@@ -151,15 +161,56 @@ textarea {
 html {
   scroll-behavior: smooth;
   font-size: 16px;
+  background-color: var(--bg-base);
 }
 
 body {
   font-family: var(--f-body);
   color: var(--text);
-  background: var(--bg);
+  background-color: transparent;
   line-height: 1.68;
   overflow-x: hidden;
   -webkit-font-smoothing: antialiased;
+}
+
+/* ── CREATIVE ANIMATED BACKGROUND (VECTOR WATER WAVES) ──────── */
+body::before, body::after {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  pointer-events: none;
+  background-repeat: repeat-x;
+  opacity: 1; /* Visible by default in both modes */
+  transition: opacity 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Hide waves completely when 'Animate' is turned OFF */
+body.motion-paused::before,
+body.motion-paused::after {
+  opacity: 0 !important;
+  animation-play-state: paused !important;
+}
+
+/* Layer 1 - Background wave */
+body::before {
+  background-image: var(--svg-wave-1);
+  background-size: 1600px 100vh;
+  background-position: 0 0;
+  animation: scrollVector 30s linear infinite;
+}
+
+/* Layer 2 - Foreground wave */
+body::after {
+  background-image: var(--svg-wave-2);
+  background-size: 1200px 100vh;
+  background-position: 0 0;
+  animation: scrollVector 22s linear infinite reverse;
+}
+
+@keyframes scrollVector {
+  0% { background-position: 0px 0px; }
+  100% { background-position: 4800px 0px; } /* Ensures seamless looping common multiple */
 }
 
 h1,
@@ -221,7 +272,8 @@ textarea:focus-visible {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background: var(--bg);
+  background-color: var(--bg-base);
+  background-image: var(--bg-orb-1), var(--bg-orb-2);
   z-index: 10001;
   /* Above everything including header */
   transition: opacity .55s cubic-bezier(.4, 0, .2, 1), visibility .55s;
@@ -444,14 +496,14 @@ header .container {
 
 .dropdown-content {
   position: absolute;
-  top: calc(100% + 8px);
+  top: 100%;
   left: 0;
   min-width: 220px;
   background: var(--surface);
   border: 1px solid var(--bdr);
   border-radius: var(--r-md);
   box-shadow: var(--sh-lg);
-  padding: 8px;
+  padding: 6px;
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
@@ -472,8 +524,8 @@ header .container {
 .dropdown-content a {
   display: flex;
   align-items: center;
-  gap: 9px;
-  padding: 8px 12px;
+  gap: 7px;
+  padding: 6px 12px;
   border-radius: var(--r-sm);
   font-size: .84rem;
   font-weight: 600;
@@ -667,8 +719,8 @@ header .container {
   height: 48px;
   border-radius: 50%;
   border: 1.5px solid var(--bdr);
-  background: var(--surface);
-  color: var(--text-2);
+  background: #ffffff;
+  color: #1e293b;
   font-size: 1.1rem;
   display: flex;
   align-items: center;
@@ -676,23 +728,124 @@ header .container {
   box-shadow: var(--sh-md);
   backdrop-filter: blur(8px);
   cursor: pointer;
-  transition: var(--t);
+  transition: all 0.3s ease;
 }
 
 .theme-pill:hover {
-  transform: translateY(-3px) scale(1.06);
+  transform: translateY(-3px) scale(1.1);
   box-shadow: var(--sh-lg);
   border-color: var(--sapphire);
   color: var(--sapphire);
 }
 
 [data-theme="dark"] .theme-pill {
+  background: linear-gradient(270deg, #020617, #1e3a8a, #020617);
+  background-size: 400% 400%;
+  animation: themeWave 4s ease infinite;
   color: var(--gold);
-  border-color: rgba(251, 191, 36, .3);
+  border-color: rgba(251, 191, 36, 0.4);
+}
+
+@keyframes themeWave {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
 [data-theme="dark"] .theme-pill:hover {
   border-color: var(--gold);
+  transform: translateY(-3px) scale(1.1) rotate(15deg);
+}
+
+/* ── ANIMATION CONTROL PANEL (ULTRA COMPACT) ────────────────── */
+.motion-ctrl {
+  position: fixed;
+  bottom: 22px;
+  left: 80px; /* Positioned to the right of theme-pill */
+  z-index: 9990;
+  padding: 0 12px;
+  background: var(--surface);
+  border: 1.5px solid var(--bdr);
+  border-radius: var(--r-full);
+  box-shadow: var(--sh-md);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 48px; /* Match height of theme-pill */
+  transition: all 0.4s ease;
+  user-select: none;
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Toggle Switch Styles */
+.motion-switch {
+  position: relative;
+  display: inline-block;
+  width: 38px;
+  height: 20px;
+}
+
+.motion-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.motion-slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background-color: var(--bdr);
+  transition: .3s;
+  border-radius: 20px;
+}
+
+.motion-slider:before {
+  position: absolute;
+  content: "";
+  height: 14px;
+  width: 14px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  transition: .3s;
+  border-radius: 50%;
+}
+
+input:checked + .motion-slider {
+  background-color: var(--sapphire);
+}
+
+input:checked + .motion-slider:before {
+  transform: translateX(18px);
+}
+
+/* Special Dark Mode styling for the control */
+[data-theme="dark"] .motion-ctrl {
+  background: rgba(15, 23, 42, 0.8);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+/* Media Queries for sizing */
+@media (max-width: 576px) {
+  .motion-ctrl {
+    bottom: 20px;
+    left: 68px; /* Tighter gap on mobile */
+    height: 38px; /* Shorter on mobile */
+    padding: 6px 10px;
+  }
+  
+  .motion-label {
+    font-size: 0.6rem;
+  }
+
+  .motion-switch {
+    transform: scale(0.85); /* Shrink switch on mobile */
+    transform-origin: center right;
+  }
 }
 
 /* ─────────────────────────────────────────────────────────────
@@ -703,33 +856,12 @@ header .container {
   display: flex;
   align-items: center;
   padding: 40px 0 60px;
-  background: var(--bg);
+  background: transparent;
   position: relative;
   overflow: hidden;
 }
 
-/* Geometric background decoration */
-.hero::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background:
-    radial-gradient(ellipse 800px 600px at 70% 40%, var(--sapphire-gl), transparent),
-    radial-gradient(ellipse 600px 400px at 10% 80%, rgba(16, 185, 129, .08), transparent);
-  pointer-events: none;
-}
-
-.hero-grid-bg {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  background-image:
-    linear-gradient(var(--bdr-lt) 1px, transparent 1px),
-    linear-gradient(90deg, var(--bdr-lt) 1px, transparent 1px);
-  background-size: 60px 60px;
-  opacity: .4;
-  mask-image: radial-gradient(ellipse 80% 80% at 50% 50%, black, transparent);
-}
+/* ── Removed static hero grid to allow fluid background to shine ── */
 
 .hero-inner {
   display: grid;
@@ -929,6 +1061,10 @@ header .container {
   box-shadow: 0 2px 8px rgba(16, 185, 129, .3);
 }
 
+[data-theme="dark"] .grade-pill {
+  color: #ffffff !important;
+}
+
 
 
 .trust-mini {
@@ -1094,7 +1230,7 @@ header .container {
    PROGRAMS
 ───────────────────────────────────────────────────────────── */
 .programs {
-  background: var(--bg);
+  background: transparent;
 }
 
 .filter-bar {
@@ -1268,7 +1404,7 @@ header .container {
    GOVERNMENT PROGRAMS
 ───────────────────────────────────────────────────────────── */
 .gov-programs {
-  background: var(--surface);
+  background: rgba(255, 255, 255, 0.02);
 }
 
 .program-blocks {
@@ -1482,7 +1618,7 @@ header .container {
    TESTIMONIALS
 ───────────────────────────────────────────────────────────── */
 .testimonials {
-  background: var(--bg);
+  background: transparent;
 }
 
 .testimonials-grid {
@@ -1540,7 +1676,7 @@ header .container {
    VIDEO SECTION
 ───────────────────────────────────────────────────────────── */
 .video-section {
-  background: var(--surface);
+  background: transparent;
 }
 
 .video-wrapper {
@@ -2340,7 +2476,7 @@ footer iframe {
 }
 
 .policy-body {
-  background: var(--bg);
+  background: transparent;
   padding: 60px 0 80px;
 }
 
@@ -2557,7 +2693,7 @@ footer iframe {
 }
 
 .content-section {
-  background: var(--bg);
+  background: transparent;
   padding: 72px 0;
 }
 

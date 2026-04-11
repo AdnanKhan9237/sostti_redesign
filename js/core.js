@@ -88,14 +88,44 @@
 
   function initTheme() {
     applyTheme(getTheme());
-    // Create pill
-    var pill = document.createElement('button');
-    pill.id = 'theme-pill';
-    pill.className = 'theme-pill';
-    pill.setAttribute('aria-label', 'Toggle dark mode');
-    pill.addEventListener('click', toggleTheme);
-    document.body.appendChild(pill);
-    applyTheme(getTheme()); // Apply icon after append
+    // Create theme pill
+    var themePill = document.createElement('button');
+    themePill.id = 'theme-pill';
+    themePill.className = 'theme-pill';
+    themePill.setAttribute('aria-label', 'Toggle dark mode');
+    themePill.addEventListener('click', toggleTheme);
+    document.body.appendChild(themePill);
+    applyTheme(getTheme()); 
+
+    // Create motion control panel
+    var motionCtrl = document.createElement('div');
+    motionCtrl.className = 'motion-ctrl';
+    motionCtrl.innerHTML = [
+      '<label class="motion-switch">',
+        '<input type="checkbox" id="motion-toggle-input">',
+        '<span class="motion-slider"></span>',
+      '</label>'
+    ].join('');
+    document.body.appendChild(motionCtrl);
+
+    var motionInput = document.getElementById('motion-toggle-input');
+    var savedMotion = localStorage.getItem('sostti-motion-paused');
+    
+    // Default to OFF (paused) if no preference is saved yet
+    var isMotionOff = (savedMotion === null || savedMotion === 'true');
+    
+    if (isMotionOff) {
+      document.body.classList.add('motion-paused');
+      motionInput.checked = false;
+    } else {
+      motionInput.checked = true;
+    }
+
+    motionInput.addEventListener('change', function() {
+      var paused = !this.checked;
+      document.body.classList.toggle('motion-paused', paused);
+      localStorage.setItem('sostti-motion-paused', paused);
+    });
   }
 
   /* ══════════════════════════════════════════════════════════
@@ -722,9 +752,14 @@
           if (prefix && href.indexOf(prefix) === 0) {
             normalizedHref = href.substring(prefix.length);
           }
-          if (normalizedHref && currentPath.endsWith(normalizedHref)) {
+          
+          // Normalize paths for comparison by stripping .html and trailing slashes
+          var basePath = currentPath.replace(/\/$/, '').replace(/\.html$/, '');
+          var baseHref = normalizedHref.split('?')[0].replace(/\/$/, '').replace(/\.html$/, '');
+
+          if (baseHref && basePath.endsWith(baseHref)) {
             a.classList.add('active');
-          } else if ((normalizedHref === '' || normalizedHref === '/') && (currentPath.endsWith('/') || currentPath.endsWith('index.html'))) {
+          } else if (!baseHref && (basePath === '' || basePath.endsWith('index'))) {
             a.classList.add('active');
           }
 
