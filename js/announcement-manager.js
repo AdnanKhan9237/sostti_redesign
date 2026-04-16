@@ -52,7 +52,7 @@
 
         ImageAdCarousel.prototype.start = function () {
             if (this.ads.length === 0) return;
-            
+
             this.createStyles();
             this.createHTML();
             this.bindEvents();

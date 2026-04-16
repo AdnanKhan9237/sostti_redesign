@@ -144,9 +144,14 @@ table,
 .badge,
 .btn,
 input,
-textarea {
-  transition: background-color .3s ease, color .3s ease,
-    border-color .3s ease, box-shadow .3s ease;
+textarea,
+.chat-box,
+.msg-bubble,
+.promo-banner {
+  transition: background-color .4s cubic-bezier(.4, 0, .2, 1), 
+              color .4s cubic-bezier(.4, 0, .2, 1),
+              border-color .4s cubic-bezier(.4, 0, .2, 1), 
+              box-shadow .4s cubic-bezier(.4, 0, .2, 1);
 }
 
 /* ── RESET ──────────────────────────────────────────────────── */
@@ -1564,6 +1569,33 @@ input:checked + .motion-slider:before {
   flex-shrink: 0;
 }
 
+/* ── PROMO BANNER (Fee Structure / Govt Programs) ─────────── */
+.promo-banner {
+  background: var(--emerald);
+  color: #fff;
+  border-radius: var(--r-md);
+  padding: 16px 20px;
+  margin-bottom: 24px;
+  box-shadow: 0 4px 12px rgba(16, 185, 129, 0.15);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+[data-theme="dark"] .promo-banner {
+  background: rgba(52, 211, 153, 0.12);
+  border: 1px solid rgba(52, 211, 153, 0.3);
+  color: #34d399;
+  box-shadow: none;
+}
+
+[data-theme="dark"] .promo-banner strong,
+[data-theme="dark"] .promo-banner i {
+  color: #6ee7b7;
+}
+
+[data-theme="dark"] .promo-banner p {
+  color: rgba(110, 231, 183, 0.85);
+}
+
 /* ─────────────────────────────────────────────────────────────
    STATS BAR
 ───────────────────────────────────────────────────────────── */
@@ -2197,8 +2229,8 @@ footer iframe {
   position: absolute;
   right: 0;
   bottom: 68px;
-  width: min(380px, calc(100vw - 32px));
-  height: min(580px, 70vh);
+  width: min(400px, calc(100vw - 32px));
+  height: min(600px, 75vh);
   background: var(--surface);
   border: 1px solid var(--bdr);
   border-radius: var(--r-lg);
@@ -2206,6 +2238,7 @@ footer iframe {
   display: none;
   flex-direction: column;
   overflow: hidden;
+  z-index: 10000;
 }
 
 .chat-box.open {
@@ -2242,12 +2275,18 @@ footer iframe {
   width: 38px;
   height: 38px;
   border-radius: 50%;
-  background: var(--sapphire);
+  background: #fff;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1rem;
-  color: #fff;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.2);
+}
+
+.chat-head-avatar img {
+  width: 85%;
+  height: 85%;
+  object-fit: contain;
 }
 
 .chat-head-info {
@@ -2268,6 +2307,25 @@ footer iframe {
   font-size: .72rem;
   color: var(--emerald);
   font-weight: 700;
+}
+
+.chat-clear-btn {
+  background: none;
+  color: rgba(255, 255, 255, .5);
+  font-size: 0.85rem;
+  padding: 4px 8px;
+  border-radius: var(--r-sm);
+  transition: var(--t-fast);
+  margin-right: -4px;
+}
+
+[data-theme="dark"] .chat-clear-btn {
+  color: var(--text-3);
+}
+
+.chat-clear-btn:hover {
+  background: rgba(239, 68, 68, .15);
+  color: var(--crimson);
 }
 
 .chat-close {
@@ -2326,20 +2384,29 @@ footer iframe {
   width: 30px;
   height: 30px;
   border-radius: 50%;
-  background: var(--sapphire-lt);
-  color: var(--sapphire);
+  background: #fff;
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: .75rem;
+  overflow: hidden;
+  border: 1px solid var(--bdr);
   flex-shrink: 0;
 }
 
+.msg-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
 .msg-bubble {
-  padding: 10px 14px;
+  padding: 12px 16px;
   border-radius: var(--r-md);
-  font-size: .84rem;
+  font-size: clamp(0.75rem, 2vw, 0.88rem);
   line-height: 1.6;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  word-break: break-word; /* Ensure long links break */
 }
 
 .msg.bot .msg-bubble {
@@ -2422,6 +2489,18 @@ footer iframe {
   transform: scale(1.05);
 }
 
+.chat-disclaimer {
+  font-size: 0.68rem;
+  color: var(--text-3);
+  text-align: center;
+  padding: 0 16px 12px;
+  line-height: 1.4;
+}
+
+.chat-disclaimer strong {
+  color: var(--sapphire);
+}
+
 /* ─────────────────────────────────────────────────────────────
    POLICY PAGES
 ───────────────────────────────────────────────────────────── */
@@ -2434,24 +2513,34 @@ footer iframe {
   overflow: hidden;
 }
 
+[data-theme="dark"] .policy-hero {
+  background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%);
+  border-bottom: 1px solid var(--bdr);
+}
+
 .policy-hero::before {
   content: '';
   position: absolute;
   inset: 0;
-  background: radial-gradient(ellipse 600px 400px at 50% 60%, rgba(29, 111, 239, .2), transparent);
+  background: radial-gradient(ellipse 600px 400px at 50% 50%, rgba(19, 159, 218, 0.25), transparent);
   pointer-events: none;
+  z-index: 1;
+}
+
+[data-theme="dark"] .policy-hero::before {
+  background: radial-gradient(ellipse 600px 400px at 50% 50%, rgba(71, 184, 234, 0.15), transparent);
 }
 
 .policy-hero h1 {
   font-size: clamp(1.8rem, 4vw, 3rem);
-  color: #fff;
+  color: #fff !important;
   margin-bottom: 12px;
   position: relative;
 }
 
 .policy-hero p {
   font-size: 1.05rem;
-  opacity: .75;
+  color: rgba(255, 255, 255, 0.85) !important;
   position: relative;
 }
 
@@ -2461,7 +2550,7 @@ footer iframe {
   gap: 8px;
   justify-content: center;
   font-size: .8rem;
-  opacity: .6;
+  color: rgba(255, 255, 255, 0.7) !important;
   margin-bottom: 16px;
   position: relative;
 }
@@ -2704,6 +2793,49 @@ footer iframe {
   padding: 40px;
   box-shadow: var(--sh-sm);
   margin-bottom: 28px;
+}
+
+/* ── FEE TABLE (feestructure page) ────────────────────────── */
+.fee-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: .88rem;
+  min-width: 500px;
+}
+
+.fee-table thead tr {
+  background: var(--ink);
+  color: #fff;
+}
+
+[data-theme="dark"] .fee-table thead tr {
+  background: var(--surface-2);
+  color: var(--sapphire);
+  border-bottom: 2px solid var(--bdr);
+}
+
+.fee-table th {
+  padding: 12px;
+  text-align: center;
+}
+
+.fee-table th:first-child {
+  text-align: left;
+}
+
+.fee-table td {
+  padding: 10px;
+  text-align: center;
+  border-bottom: 1px solid var(--bdr);
+}
+
+.fee-table td:first-child {
+  text-align: left;
+  font-weight: 700;
+}
+
+.fee-table tr.alt-row {
+  background: var(--surface-2);
 }
 
 [data-theme="dark"] .content-card {
@@ -3703,6 +3835,20 @@ body.ticker-closed {
     padding: 28px 22px;
   }
 
+  /* ── Chatbot (MD) ── */
+  .chat-box {
+    width: calc(100vw - 32px);
+    height: min(600px, 72vh);
+    bottom: 74px;
+    right: 0;
+    border-radius: var(--r-md);
+  }
+
+  .msg-bubble {
+    font-size: .86rem;
+    padding: 10px 14px;
+  }
+
   /* ── Video ── */
   .video-controls {
     gap: 8px;
@@ -4219,7 +4365,9 @@ body.ticker-closed {
   }
 
   .chat-box {
-    height: min(520px, 65vh);
+    width: calc(100vw - 28px);
+    height: min(520px, 68vh);
+    bottom: 64px;
   }
 
   .chat-head {
@@ -4228,27 +4376,33 @@ body.ticker-closed {
 
   .chat-msgs {
     padding: 12px;
+    gap: 10px;
+  }
+
+  .msg {
+    max-width: 92%;
   }
 
   .msg-bubble {
     padding: 8px 12px;
-    font-size: .8rem;
+    font-size: .82rem;
+    line-height: 1.5;
   }
 
   .chat-input {
-    padding: 8px 12px;
+    padding: 8px 14px;
     font-size: .82rem;
   }
 
   .chat-send {
-    width: 34px;
-    height: 34px;
-    font-size: .82rem;
+    width: 36px;
+    height: 36px;
+    font-size: .84rem;
   }
 
   .quick-btn {
     padding: 4px 10px;
-    font-size: .72rem;
+    font-size: .7rem;
   }
 
   /* ── Footer ── */

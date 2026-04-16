@@ -1,5 +1,5 @@
 /**
- * core.js — SOSTTI 2026 Core Scripts
+ * core.js — SOSTTI 2026 Core Scripts (ENHANCED WITH ACTUAL WEBSITE DATA)
  * Handles: header/footer loading, dark mode, chatbot, floating buttons,
  *          scroll reveal, apply popup, certificate modal
  */
@@ -95,25 +95,25 @@
     themePill.setAttribute('aria-label', 'Toggle dark mode');
     themePill.addEventListener('click', toggleTheme);
     document.body.appendChild(themePill);
-    applyTheme(getTheme()); 
+    applyTheme(getTheme());
 
     // Create motion control panel
     var motionCtrl = document.createElement('div');
     motionCtrl.className = 'motion-ctrl';
     motionCtrl.innerHTML = [
       '<label class="motion-switch">',
-        '<input type="checkbox" id="motion-toggle-input">',
-        '<span class="motion-slider"></span>',
+      '<input type="checkbox" id="motion-toggle-input">',
+      '<span class="motion-slider"></span>',
       '</label>'
     ].join('');
     document.body.appendChild(motionCtrl);
 
     var motionInput = document.getElementById('motion-toggle-input');
     var savedMotion = localStorage.getItem('sostti-motion-paused');
-    
+
     // Default to OFF (paused) if no preference is saved yet
     var isMotionOff = (savedMotion === null || savedMotion === 'true');
-    
+
     if (isMotionOff) {
       document.body.classList.add('motion-paused');
       motionInput.checked = false;
@@ -121,7 +121,7 @@
       motionInput.checked = true;
     }
 
-    motionInput.addEventListener('change', function() {
+    motionInput.addEventListener('change', function () {
       var paused = !this.checked;
       document.body.classList.toggle('motion-paused', paused);
       localStorage.setItem('sostti-motion-paused', paused);
@@ -179,105 +179,462 @@
   }
 
   /* ══════════════════════════════════════════════════════════
-     5. CHATBOT
+     5. CHATBOT (ENHANCED WITH ACTUAL SOSTTI DATA - GROQ API)
   ══════════════════════════════════════════════════════════ */
-  var BOT_KB = {
-    greetings: {
-      patterns: /hello|hi|hey|greetings|salaam|aoa|good morning|good afternoon/,
-      responses: [
-        "👋 Hello! I'm the SOSTTI Smart Assistant. I'm here to help you navigate your way into a successful technical career. What can I tell you about our institute today?",
-        "Hi there! It's great to see you interested in technical education. Whether you're looking for free courses or professional certifications, I've got the answers. How can I help?",
-        "Assalam-u-Alaikum! Welcome to SOS Technical Training Institute. How can we help you build your future today?"
-      ]
-    },
-    identity: {
-      patterns: /who are you|about sostti|mission|vision|what is sos|charity|organization/,
-      responses: [
-        "SOS Technical Training Institute (SOSTTI) is a project of **SOS Children's Villages Pakistan**. Since 2000, we have been dedicated to providing high-quality, professional vocational training to vulnerable youth and the general public, empowering them with the skills needed for financial independence.",
-        "We are more than just a school; we are a path to empowerment. SOSTTI is a non-profit technical institute that focuses on market-driven skills, accredited by top government bodies like NAVTTC and BBSHRRDB."
-      ]
-    },
-    thanks: {
-      patterns: /thanks|thank you|thx|jazak|helpful|nice|great/,
-      responses: [
-        "You're very welcome! Supporting your education is what we do best. Is there anything else—perhaps about our free government programs—you'd like to know?",
-        "Happy to assist! Remember, our doors are always open at Korangi if you want to see our labs in person. Anything else for today?"
-      ]
-    },
-    digital_library: {
-      patterns: /library|book|pdf|resource|manual|manuals|study material|reading|ebook/,
-      responses: [
-        "Knowledge should be free! Our **Digital Library** features over 100+ professional technical manuals, ranging from NASA graphics standards to OSHA safety guides. You can browse them all here: <a href='/pages/digital-library.html'>Visit Library</a>.",
-        "We maintain a huge repository of PDF resources to help our students study at home. You can find manuals for Welding, Solar, Computer IT, and Digital Marketing in our <a href='/pages/digital-library.html'>Digital Library</a>."
-      ]
-    },
-    courses: {
-      patterns: /course|program|learn|study|train|what do you teach|classes|departments|marketing/,
-      responses: [
-        "We offer a wide range of professional trades across 14+ departments:\n\n• **Computer Sciences**: Web & Graphic Design, Digital Marketing, Computer Operator\n• **Engineering Trades**: Automobile, HVACR, Advance Welding, Machinist\n• **Electrical**: Solar PV, General/Industrial Electrician\n• **Life Skills**: English Language, Mobile Repairing\n\nMost courses are 6 months long and follow the 'Competency-Based Training' (CBT) model. Which area interests you most?",
-        "Our courses are designed by industry experts. We offer both **Free Government-funded seats** and low-cost self-finance options. Popular choices right now are Solar PV, Web Development, and Digital Marketing."
-      ]
-    },
-    admission: {
-      patterns: /admiss|enroll|register|apply|join|how to get in|entrance|form|deadline/,
-      responses: [
-        "Joining SOSTTI is simple! Admissions are currently **OPEN**. You just need to be between 14-35 years old.\n\n**To register:** Visit our campus at Korangi with your CNIC (or B-Form) and 2 passport photos. We'll give you a simple entrance interview.\n\nYou can also start your journey by filling out our <a href='https://docs.google.com/forms/d/e/1FAIpQLSdnJItkIMyt3SGNaDeTBDcMTBKNeKJ4lC8cx3wxSOvjpciX4g/viewform' target='_blank'>Online Inquiry Form</a> and we'll call you back!"
-      ]
-    },
-    fee: {
-      patterns: /fee|cost|price|pay|afford|free|scholarship|monthly/,
-      responses: [
-        "We are committed to making education affordable for everyone. \n\n1. **Government Programs**: NAVTTC and BBSHRRDB courses are **100% FREE** with a monthly stipend often provided.\n2. **SOS Managed**: Our regular self-finance courses are highly subsidized thanks to our donors.\n\nYou can view the full breakdown on our <a href='/pages/feestructure.html'>Fee Structure</a> page."
-      ]
-    },
-    certification: {
-      patterns: /certificate|recognized|degree|valid|attested|navttc|grade/,
-      responses: [
-        "Excellence is guaranteed! SOSTTI is a **Grade-A** accredited institute by **NAVTTC** (National Vocational and Technical Training Commission) with an audit score of 92.5%. Our certificates are recognized both in Pakistan and internationally, which is a huge advantage for jobs in the Middle East and beyond."
-      ]
-    },
-    facilities: {
-      patterns: /facility|lab|workshop|machine|equipment|campus|building/,
-      responses: [
-        "We believe in 'Learning by Doing.' Our campus features modern workshops equipped with industrial-grade machines for Welding and Machining, high-end Computer Labs for IT, and a specialized Solar PV training ground. You're invited to visit us any weekday between 9 AM and 5 PM for a tour!"
-      ]
-    },
-    job_placement: {
-      patterns: /job|work|career|placement|hired|industry|future|salary/,
-      responses: [
-        "Your success is our priority. We have strong links with local industries in Korangi and Landhi. Many of our students are placed in internships and full-time positions at leading manufacturing firms"
-      ]
-    },
-    location: {
-      patterns: /location|address|where|map|find|office|how to reach/,
-      responses: [
-        "Our main campus is conveniently located at:\n**52/6, Korangi Township, Near Lalabad Goth, Korangi, Karachi.**\n\nIt's easily accessible by local transport. You can find us on Google Maps via the link in our website's footer."
-      ]
-    },
-    contact: {
-      patterns: /contact|phone|call|email|number|whatsapp|helpline/,
-      responses: [
-        "I'm here for quick questions, but for detailed academic guidance, you can call us directly:\n\n📞 **+92 333 2247494**"
-      ]
-    },
-    fallback: [
-      "I want to make sure I give you the right answer! Are you asking about our **courses**, **admission deadlines**, or **free government programs**?",
-      "That's an interesting question. While I'm still learning some of the finer details, I can tell you that SOS Technical is dedicated to youth empowerment. Could you rephrase your question slightly?",
-      "I'm not exactly sure about that specific detail. However, our main coordinator can definitely help you at **+92 333 2247494**. Should I tell you more about our **Digital Library** instead?"
-    ]
-  };
 
-  function getBotResponse(msg) {
-    var query = msg.toLowerCase();
-    for (var key in BOT_KB) {
-      if (key === 'fallback') continue;
-      if (BOT_KB[key].patterns.test(query)) {
-        var r = BOT_KB[key].responses;
-        return r[Math.floor(Math.random() * r.length)];
+  // COMPREHENSIVE TRAINING DATA FROM ACTUAL SOSTTI.ORG WEBSITE
+  var BOT_SYSTEM_PROMPT = `You are the SOSTTI Smart Assistant for SOS Technical Training Institute (SOSTTI) — a project of SOS Children's Villages Pakistan.
+
+═══════════════════════════════════════════════════════════════════
+INSTITUTIONAL INFORMATION
+═══════════════════════════════════════════════════════════════════
+
+ABOUT SOSTTI:
+- Full Name: SOS Technical Training Institute (Infaq Foundation Campus)
+- Inaugurated: 2010 (MOU between SOS Sindh and INFAQ Foundation signed in 2007)
+- Location: 52/6, Korangi Township, Near Lalabad Goth, Korangi, Karachi, Sindh, Pakistan
+- Parent Organization: SOS Children's Villages Pakistan
+- Legal Status: Non-profit vocational training institute
+- Contact: Phone/WhatsApp: +92 333 2247494
+- Email: sosttikarachi@sos.org.pk
+- Website: sostti.org
+
+ACCREDITATION & RECOGNITION:
+- NAVTTC (National Vocational & Technical Training Commission) Accredited - Grade A
+- Overall Institute Accreditation Score: 92.5%
+- BBSHRRDB Registered
+- Registered with Government of Pakistan for TVET
+- Certificates recognized nationally and internationally (especially Middle East)
+
+LEADERSHIP & GOVERNANCE:
+- Chairman SOSTTI: Mr. Sanaullah Qureshi (FCA)
+- Co-Chairman SOSTTI: Mr. Yacoobali G. Zamindar (FCA)
+- Principal SOSTTI: Cdre (Retd) Khalid Wasim (Sitara-e-Imtiaz Military) - Former Principal PNEC
+
+MISSION & PHILOSOPHY:
+- Provide high-standard technical and vocational training to under-privileged youth
+- Focus on vulnerable youth and general public with market-driven technical skills
+- Meet entry-level job market needs in chosen technical fields
+- Small class sizes for personalized instructor support and hands-on training
+- Workshop safety training is priority for all students
+- Recreate workplace environment for practical skill development
+- Offer internships at employer sites for real-world experience
+
+═══════════════════════════════════════════════════════════════════
+COURSES & PROGRAMS (2026)
+═══════════════════════════════════════════════════════════════════
+
+COMPUTER & IT COURSES:
+1. Computer Operator
+   - Duration: 6 months (Competency-Based Training model)
+   - Skills: Basic to advanced office automation, data entry, MS Office suite
+   - Job Roles: Data entry operator, office assistant, computer operator
+   - Equipment: High-end computer labs with industry-standard software
+   
+2. Web Designing & Web Development
+   - Duration: 6 months (Competency-Based Training model)
+   - Focus: HTML, CSS, JavaScript, responsive design, modern frameworks
+   - Career Path: Web designer, front-end developer, freelancer
+   - Emphasis: Freelancing skills for independent work
+   
+3. Graphic Designing
+   - Duration: 6 months (Competency-Based Training model)
+   - Software: Adobe Photoshop, Illustrator, InDesign, CorelDRAW
+   - Skills: Logo design, branding, print media, digital graphics
+   - Focus: Design sense development through theory and practical work
+   
+4. Digital Marketing
+   - Duration: 6 months
+   - Topics: SEO, social media marketing, content marketing, analytics
+   - Skills: Online advertising, campaign management, digital strategy
+   
+
+
+TECHNICAL COURSES:
+1. Automobile Mechanic / Electrician
+   - Duration: 6 months (Competency-Based Training model)
+   - Skills: Vehicle diagnostics, repair, electrical systems
+   - Equipment: Modern workshop with actual vehicles for training
+   
+2. HVACR (Heating, Ventilation, Air Conditioning & Refrigeration)
+   - Duration: 6 months (Competency-Based Training model)
+   - Skills: Diagnosis, repair, installation of refrigerators, freezers, AC units
+   - Practical: Hands-on training with actual equipment
+   - Job Market: High demand in Karachi's commercial sector
+   
+3. General Electrician
+   - Duration: 6 months (Competency-Based Training model)
+   - Skills: Electrical wiring, installations, maintenance, troubleshooting
+   - Certification: NAVTTC certified
+   
+4. Industrial Electrician
+   - Duration: 6 months (Competency-Based Training model)
+   - Advanced training for industrial settings
+   - Success Story: Mr. Tayyab stood FIRST in NAVTTC Provincial Skill Competition 2018
+   
+5. Advance Welding
+   - Duration: 6 months (Competency-Based Training model)
+   - Skills: Complex welding tasks with accuracy
+   - Equipment: Industrial-grade welding machines
+   - Markets: Local industries and international opportunities (Middle East)
+   
+6. Machinist / Turner
+   - Duration: 6 months (Competency-Based Training model)
+   - Skills: Precision machining, lathe operations, metal work
+   - Equipment: Industrial CNC and manual machines
+   
+7. Motorcycle Mechanic
+   - Duration: 6 months (Competency-Based Training model)
+   - Partnership: Atlas Honda provides motorcycles, tools, and training
+   - Skills: Maintenance, repair, overhaul of motorcycles
+   - Career: Independent workshop or professional employment
+   - Special: Regular training workshops conducted by Atlas Honda
+   
+8. UPS & Solar PV Technician
+   - Duration: 3 months
+   - Focus: Solar panel installation, UPS systems, renewable energy
+   - Facility: Specialized Solar PV training ground on campus
+   - Growing Field: High demand with Pakistan's energy needs
+
+9. Mobile Phone Repairing
+   - Duration: 3 months
+   - Skills: Smartphone diagnostics, hardware/software repair
+   - Growing demand with mobile technology expansion
+
+Language Course:
+1. English Language Course
+   - Duration: 3 months
+   - Skills: Verbal and written communication for workplace
+   - Focus: Confidence in professional English usage
+   - Open to: Both boys and girls
+
+═══════════════════════════════════════════════════════════════════
+GOVERNMENT-SPONSORED PROGRAMS (100% FREE)
+═══════════════════════════════════════════════════════════════════
+
+1. NAVTTC COURSES (National Vocational & Technical Training Commission):
+   - Part of: Prime Minister's Kamyab Jawan Initiative - Skills for All Program
+   - Cost: 100% FREE (Government of Pakistan sponsored)
+   - Stipend: No Stipend is Provided to students
+   - Admission are not open for now.
+   - Available Trades: General Electrician, HVACR, Mobile Phone Repairing
+   - Requirements:
+     * Must have CNIC and domicile is not required
+     * Age: 18-35 years
+     * Minimum: 8th class pass
+     * Limited seats - early registration recommended
+
+2. BBSHRRDB COURSES (Benazir Bhutto Shaheed Board):
+   - Sindh Government-sponsored programs
+   - Cost: 100% FREE
+   - Admission are not open for now.
+   - Available Trades: Computer Operator, Graphic Designing, Auto Mechanic, Welding
+   - Stipend: Monthly stipend provided
+   - Requirements:
+     * Must have CNIC, domicile of Sindh
+     * Age: 18-35 years
+     * Minimum: 8th class pass
+     * Limited seats - early registration recommended
+
+3. RPL (Recognition of Prior Learning):
+   - For individuals with existing skills but no formal certification
+
+═══════════════════════════════════════════════════════════════════
+FEE STRUCTURE (SELF-FINANCE COURSES)
+═══════════════════════════════════════════════════════════════════
+
+COMPUTER SCIENCES (6-Month Courses):
+- Computer Operator: Boys Rs. 10,500 | Girls Rs. 5,000
+- Graphics Designing: Boys Rs. 10,500 | Girls Rs. 5,000
+- Web Designing & Web Dev: Boys Rs. 10,500 | Girls Rs. 5,000
+- Digital Marketing: Boys Rs. 10,500 | Girls Rs. 5,000
+
+TECHNICAL & ENGINEERING (6-Month Courses):
+- Automobile Mechanic: Rs. 5,000
+- HVACR: Rs. 5,000
+- Advance Welding: Rs. 5,000
+- Motorcycle Mechanic: Rs. 5,000
+- Mechanical Turner: Rs. 5,000
+- General Electrician: Rs. 5,000
+- UPS & Solar PV Technician (3-Month): Rs. 5,000
+
+English Language & Mobile Phone Repairing (3-Month Courses):
+- Mobile Phone Repairing: Rs. 10,000
+- English Language: Rs. 5000
+
+NOTE: These are total course fees for the entire duration (3 or 6 months). 
+SOSTTI keeps fees minimal to serve under-privileged communities.
+For Government-sponsored programs (NAVTTC/BBSHRRDB), the fee is 100% FREE.
+
+═══════════════════════════════════════════════════════════════════
+ADMISSION PROCESS & REQUIREMENTS
+═══════════════════════════════════════════════════════════════════
+
+ADMISSION SESSIONS:
+- Spring Session: Admissions open in May/June
+- Fall Session: Admissions open in November/December
+
+ELIGIBILITY:
+- Age: 14-35 years
+- Minimum Education: Middle (8th class pass)
+- Passing entry test and interview is required
+
+REQUIRED DOCUMENTS:
+1. School leaving certificate (Matriculation/Middle)
+2. CNIC photocopy OR B-Form (for students under 18 years)
+3. Two passport-size photographs
+4. CNIC photocopy of father/guardian
+
+ADMISSION OFFICE TIMINGS:
+- Technical Courses Inquiry: 09:00 AM – 12:00 PM and 01:00 PM – 04:00 PM
+- IT & Other Courses Inquiry: Various slots from 09:00 AM to 07:00 PM
+- Online Inquiry: https://docs.google.com/forms/d/e/1FAIpQLSdnJItkIMyt3SGNaDeTBDcMTBKNeKJ4lC8cx3wxSOvjpciX4g/viewform
+
+═══════════════════════════════════════════════════════════════════
+FACILITIES & RESOURCES
+═══════════════════════════════════════════════════════════════════
+
+WORKSHOPS & LABS:
+- Modern workshops with industrial-grade machines
+- High-end Computer Labs for IT courses with latest software
+- Specialized UPS &Solar PV training
+- Automobile workshop with actual vehicles
+- HVACR lab with refrigerators, freezers, AC units
+- Mobile phone repair lab with diagnostic equipment
+
+SAFETY:
+- Workshop safety training is TOP PRIORITY for all students
+- Safety equipment provided
+- Trained instructors supervising all practical work
+
+CAMPUS VISITS:
+- Welcome for prospective students and parents
+- Weekdays: Monday to Saturday from 9:00 AM to 4:00 PM on Friday 09:00 AM to 12:00 PM 
+- See all workshops and facilities
+- Meet instructors and current students
+
+DIGITAL LIBRARY:
+- 100+ professional technical manuals and e-books
+- Key Resources: Google SEO Starter Guide, Eloquent JavaScript, OSTEP Operating Systems manuals, NASA technical documents, OSHA safety guides
+- Covers: IT, Web Dev, Marketing, Welding, Solar, Electrician, Automobile, and more
+- FREE access for students and public
+- Available at: pages/digital-library.html
+
+═══════════════════════════════════════════════════════════════════
+JOB PLACEMENT & CAREER SUPPORT
+═══════════════════════════════════════════════════════════════════
+
+INDUSTRY PARTNERSHIPS:
+- Strong links with Korangi and Landhi industrial zones (Pakistan's largest industrial area)
+- Students placed in internships and full-time positions
+- Leading manufacturing firms hire SOSTTI graduates
+- Atlas Honda partnership for motorcycle mechanic training
+- Shell Pakistan collaboration (eco-friendly car project, mentoring programs)
+- Gul Ahmed Textiles and other major employers
+
+CAREER SERVICES:
+- Job search skills training
+- Assistance with job placements
+- On-the-job internship opportunities
+- Transition support from institute to workplace
+- Resume building and interview preparation
+
+EMPLOYER FEEDBACK:
+- Employers seek SOSTTI graduates for practical experience
+- Students get valuable work experience during training
+- High employment rate in local and international markets
+
+GRADUATE SUCCESS STORIES (Real examples):
+- Umer Hussain: Established his own motorcycle repair workshop at Sherpao Colony, Karachi after finishing his course.
+- Zubair Khan: Appointed as a Welder at Shabbir Tiles (Pvt) Limited, Landhi, Karachi.
+- Manzar: Appointed at International Steel Limited (ISL) as an apprentice after automotive training.
+- Abdul Majeed: Successfully transitioned from student to Assistant Instructor at SOSTTI campus.
+- Sher Afzal: Running his own motorcycle repair shop at New Muzaffarabad, Landhi.
+
+═══════════════════════════════════════════════════════════════════
+SPECIAL INITIATIVES & PARTNERSHIPS
+═══════════════════════════════════════════════════════════════════
+
+ATLAS HONDA PARTNERSHIP:
+- Provides motorcycles, tools, and equipment for training
+- Conducts regular training workshops
+- June 23, 2022: Training for 25 Afghan Refugee students (NAVTTC sponsored)
+
+SHELL PAKISTAN PARTNERSHIP:
+- Eco-friendly car construction project (MOU signed)
+- Women's Day mentoring circles (March 8, 2019) for 14 female entrepreneurs
+- Shell Tameer program support for micro start-ups
+
+REFUGEE SUPPORT:
+- Afghan Refugee student programs through NAVTTC/UNHCR
+- Tool kits distribution (May 10, 2022: 36 students - Batch III)
+- Certificate distribution for 66 students (NAVTTC High-tech Batch-II)
+
+COMMUNITY ENGAGEMENT:
+- Blood donation camps (Indus Hospital partnership - 47 volunteers, 25 donors in 2019)
+- Admission camps in various localities and schools
+- Free technical education for vulnerable communities
+
+═══════════════════════════════════════════════════════════════════
+ACHIEVEMENTS & RECOGNITION
+═══════════════════════════════════════════════════════════════════
+
+- NAVTTC Provincial Skill Competition 2018: Mr. Tayyab (Industrial Electrician) - 1st Place
+- Governor Sindh Sr. Imran Ismail attended as chief guest
+- Grade A accreditation with 92.5% score
+- Thousands of graduates successfully employed
+- International recognition especially in Middle East countries
+
+═══════════════════════════════════════════════════════════════════
+IMPORTANT LINKS & PAGES
+═══════════════════════════════════════════════════════════════════
+
+- Fee Structure: pages/feestructure.html
+- Digital Library: pages/digital-library.html
+- Admission Schedule: pages/admissionschedule.html
+- Online Inquiry Form: https://docs.google.com/forms/d/e/1FAIpQLSdnJItkIMyt3SGNaDeTBDcMTBKNeKJ4lC8cx3wxSOvjpciX4g/viewform
+- Course Details: pages/courses/[course-name].html
+
+═══════════════════════════════════════════════════════════════════
+COMMUNICATION GUIDELINES FOR ASSISTANT
+═══════════════════════════════════════════════════════════════════
+
+TONE & STYLE:
+- Be warm, helpful, and genuinely caring
+- Use simple, clear language - many users are first-generation students
+- Keep replies to 2-3 SHORT paragraphs maximum (unless detailed question requires more)
+- Be encouraging and motivating
+- Show empathy for students' situations
+
+RESPONSE PRIORITIES:
+1. ALWAYS mention FREE government programs FIRST when asked about fees
+2. Emphasize the opportunity for monthly stipend in government programs
+3. Highlight that self-finance fees are highly subsidized
+4. Stress SOSTTI's mission to help under-privileged youth
+5. Mention specific success stories when relevant
+6. Always mention that SOSTTI offers both **6-month professional courses** and **3-month short-term courses**.
+
+FORMATTING:
+- Use **bold** for emphasis on key points
+- Use bullet points for lists (fees, documents, courses)
+- Keep paragraphs short (2-3 sentences max)
+- Natural, conversational flow
+- **STRICT RULE: Do NOT use any emojis or icons in your responses.**
+
+HANDLING QUERIES:
+- Fee questions → Mention FREE programs first, then subsidized fees
+- Course questions → Give a brief overview, mention both 6-month and 3-month options, and mention job prospects.
+- Admission questions → Simple step-by-step process, required documents
+- Job questions → Mention partnerships, placement support
+- Unrelated questions → Politely redirect to SOSTTI topics
+
+REFERRALS:
+- For complex queries → Suggest calling +92 333 2247494
+- For online application → Provide inquiry form link
+- For campus visit → Mention weekday timings
+- For specific course details → Reference relevant page links
+
+BOUNDARIES:
+- Answer ONLY SOSTTI-related questions
+- Do NOT invent specific dates, fees, or details not provided above
+- Do NOT make promises about job placement or salaries
+- Refer complex admission cases to office
+
+EXAMPLES OF GOOD RESPONSES:
+
+Q: "How much are the fees?"
+A: "Great news! SOSTTI offers **100% FREE government-sponsored programs** through NAVTTC and BBSHRRDB. While both are free, BBSHRRDB programs also include a monthly stipend for students!
+
+For self-finance courses, fees are highly subsidized: Computer Operator for girls is **Rs. 5,000**, and technical courses like Welding or Electrician are just **Rs. 5,000** for the entire 6-month duration.
+
+Would you like to know more about the free government programs? They have limited seats, so early registration is recommended!"
+
+Q: "Tell me about welding course"
+A: "Our **Advance Welding** course is excellent!
+
+You'll learn complex welding tasks with accuracy using industrial-grade equipment. The 6-month program opens doors to both local industries (Karachi has huge industrial zones) and international opportunities, especially in the Middle East where our certificates are recognized.
+
+Best part? This course is available **FREE** under government programs (NAVTTC or BBSHRRDB, which includes a monthly stipend), or just **Rs. 5,000** self-finance for the full duration. Call **+92 333 2247494** to secure your seat!"
+
+Remember: You represent SOSTTI's mission of empowering vulnerable youth through education. Every response should reflect hope, opportunity, and genuine care. **Do not use emojis.**`;
+
+  var HISTORY_KEY = 'sostti_chat_history';
+  var botHistory = [];
+
+  function loadHistory() {
+    var saved = localStorage.getItem(HISTORY_KEY);
+    if (saved) {
+      try {
+        var parsed = JSON.parse(saved);
+        if (Array.isArray(parsed)) botHistory = parsed;
+      } catch (e) {
+        console.warn('Failed to parse chat history', e);
       }
     }
-    var f = BOT_KB.fallback;
-    return f[Math.floor(Math.random() * f.length)];
+  }
+
+  function saveHistory() {
+    localStorage.setItem(HISTORY_KEY, JSON.stringify(botHistory));
+  }
+
+  function clearChat() {
+    botHistory = [];
+    localStorage.removeItem(HISTORY_KEY);
+    var msgs = document.getElementById('chat-msgs');
+    if (msgs) msgs.innerHTML = '';
+    document.getElementById('chat-quick').style.display = 'flex';
+    // Add greeting back
+    addMsg('**Assalam-o-Alaikum!** I\'m your SOSTTI Smart Assistant.\n\nI can help you with:\n• **FREE government courses** (stipend for select programs)\n• Course details and fees\n• Admission process\n• Campus facilities\n\nWhat would you like to know?', 'bot');
+  }
+
+  function getBotResponse(msg, callback) {
+    var userMsg = { role: 'user', content: msg };
+    botHistory.push(userMsg);
+    saveHistory(); // Save to localStorage
+
+    // Keep history manageable — last 10 messages only
+    if (botHistory.length > 10) {
+      botHistory = botHistory.slice(botHistory.length - 10);
+    }
+
+    // Using DeepSeek via Proxy (with Groq fallback)
+    fetch(prefix + 'chat_proxy.php', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'deepseek-chat',
+        max_tokens: 1000,
+        temperature: 0.7,
+        top_p: 0.9,
+        messages: [
+          { role: 'system', content: BOT_SYSTEM_PROMPT },
+          ...botHistory
+        ]
+      })
+    })
+    .then(function (res) { return res.json(); })
+    .then(function (data) {
+      var reply = '';
+
+      if (data.choices && data.choices[0] && data.choices[0].message) {
+        reply = data.choices[0].message.content;
+      }
+      else if (data.choices && data.choices[0].text) {
+        reply = data.choices[0].text;
+      }
+      else {
+        reply = 'I am currently facing a connection issue. For immediate help, please call our admission office at **+92 333 2247494** or visit us on campus (Mon-Sat 9AM-4PM, Fri 9AM-12PM). We apologize for the inconvenience!';
+      }
+
+      var botMsg = { role: 'assistant', content: reply };
+      botHistory.push(botMsg);
+      saveHistory(); // Save to localStorage
+      callback(reply);
+    })
+      .catch(function (err) {
+        console.error('Chat error:', err);
+        callback('I am currently facing a connection issue. For immediate help, please call our admission office at **+92 333 2247494** or visit us on campus (Mon-Sat 9AM-4PM, Fri 9AM-12PM). We apologize for the inconvenience!');
+      });
   }
 
   function initChat() {
@@ -290,25 +647,29 @@
       '</button>',
       '<div class="chat-box" id="chat-box" role="dialog" aria-label="SOSTTI Chat Support">',
       '<div class="chat-head">',
-      '<div class="chat-head-avatar"><i class="fas fa-graduation-cap"></i></div>',
+      '<div class="chat-head-avatar"><img src="' + prefix + 'images/sos-logo.webp" alt="SOS Logo"></div>',
       '<div class="chat-head-info">',
       '<div class="chat-head-name">SOSTTI Smart Assistant</div>',
-      '<div class="chat-head-status">● Online | Digital Assistant</div>',
+      '<div class="chat-head-status">● Online | AI-Powered Helper</div>',
       '</div>',
+      '<button class="chat-clear-btn" id="chat-clear-btn" title="Clear Chat" aria-label="Clear chat"><i class="fas fa-trash-alt"></i></button>',
       '<button class="chat-close" id="chat-close-btn" aria-label="Close chat"><i class="fas fa-times"></i></button>',
       '</div>',
       '<div class="chat-msgs" id="chat-msgs"></div>',
-      '<div id="chat-typing-indicator" style="display:none; padding: 10px 16px; font-size: .75rem; color: var(--text-3); font-style: italic;">Assistant is typing...</div>',
+      '<div id="chat-typing-indicator" style="display:none; padding: 10px 16px; font-size: .75rem; color: var(--text-3); font-style: italic;">',
+      '<i class="fas fa-circle-notch fa-spin"></i> Assistant is thinking...',
+      '</div>',
       '<div class="chat-quick" id="chat-quick">',
-      '<button class="quick-btn" data-msg="Tell me about courses">Courses</button>',
-      '<button class="quick-btn" data-msg="How to apply for admission">Admissions</button>',
-      '<button class="quick-btn" data-msg="Free government programs">Free Programs</button>',
-      '<button class="quick-btn" data-msg="Digital Library">Books</button>',
+      '<button class="quick-btn" data-msg="What are the FREE government courses?">Free Courses</button>',
+      '<button class="quick-btn" data-msg="Tell me about computer courses">IT Courses</button>',
+      '<button class="quick-btn" data-msg="How much are the fees?">Fees</button>',
+      '<button class="quick-btn" data-msg="How do I apply for admission?">Admission</button>',
       '</div>',
       '<div class="chat-input-row">',
-      '<input class="chat-input" id="chat-input" type="text" placeholder="Type your question..." aria-label="Chat message">',
+      '<input class="chat-input" id="chat-input" type="text" placeholder="Ask me anything about SOSTTI..." aria-label="Chat message">',
       '<button class="chat-send" id="chat-send-btn" aria-label="Send"><i class="fas fa-paper-plane"></i></button>',
       '</div>',
+      '<div class="chat-disclaimer">AI may provide incorrect info. Verify details at <strong>+92 333 2247494</strong>.</div>',
       '</div>'
     ].join('');
     document.body.appendChild(wrap);
@@ -325,8 +686,22 @@
     function addMsg(text, type) {
       var row = document.createElement('div');
       row.className = 'msg ' + type;
-      var avatar = type === 'bot' ? '<div class="msg-avatar"><i class="fas fa-robot"></i></div>' : '';
-      row.innerHTML = avatar + '<div class="msg-bubble">' + text.replace(/\n/g, '<br>') + '</div>';
+      var avatar = type === 'bot'
+        ? '<div class="msg-avatar"><img src="' + prefix + 'images/sos-logo.webp" alt="Bot"></div>'
+        : '';
+
+      // Convert markdown-style formatting to HTML
+      var formattedText = text
+        // 1. Convert URLs to clickable links
+        .replace(/(https?:\/\/[^\s]+)/g, '<a href="$1" target="_blank" rel="noopener" style="color:inherit; text-decoration:underline;">$1</a>')
+        // 2. Convert bold text
+        .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>')
+        // 3. Simple bullet points (lines starting with * or •)
+        .replace(/^[\*•] (.*)$/gm, '<div style="display:flex; gap:8px; margin-bottom:4px;"><span style="color:var(--sapphire)">•</span><span>$1</span></div>')
+        // 4. Line breaks
+        .replace(/\n/g, '<br>');
+
+      row.innerHTML = avatar + '<div class="msg-bubble">' + formattedText + '</div>';
       msgs.appendChild(row);
       msgs.scrollTop = msgs.scrollHeight;
     }
@@ -335,15 +710,20 @@
       if (!text.trim()) return;
       addMsg(text, 'user');
       input.value = '';
+      input.disabled = true;
+      sendBtn.disabled = true;
       document.getElementById('chat-quick').style.display = 'none';
 
       typing.style.display = 'block';
       msgs.scrollTop = msgs.scrollHeight;
 
-      setTimeout(function () {
+      getBotResponse(text, function (reply) {
         typing.style.display = 'none';
-        addMsg(getBotResponse(text), 'bot');
-      }, 1000 + Math.random() * 500);
+        addMsg(reply, 'bot');
+        input.disabled = false;
+        sendBtn.disabled = false;
+        input.focus();
+      });
     }
 
     toggleBtn.addEventListener('click', function () {
@@ -351,13 +731,29 @@
       if (chatBox.classList.contains('open')) {
         notif.style.display = 'none';
         if (!msgs.children.length) {
-          typing.style.display = 'block';
-          setTimeout(function () {
-            typing.style.display = 'none';
-            addMsg('👋 Hello there! I am your SOSTTI Smart Assistant. How can I help you today?', 'bot');
-          }, 600);
+          loadHistory(); // Reload history just in case
+          if (botHistory.length > 0) {
+            // Re-render history
+            botHistory.forEach(function (m) {
+              addMsg(m.content, m.role === 'assistant' ? 'bot' : 'user');
+            });
+            document.getElementById('chat-quick').style.display = 'none';
+          } else {
+            typing.style.display = 'block';
+            setTimeout(function () {
+              typing.style.display = 'none';
+              addMsg('**Assalam-o-Alaikum!** I\'m your SOSTTI Smart Assistant.\n\nI can help you with:\n• **FREE government courses** (stipend for select programs)\n• Course details and fees\n• Admission process\n• Campus facilities\n\nWhat would you like to know?', 'bot');
+            }, 800);
+          }
         }
         input.focus();
+      }
+    });
+
+    document.getElementById('chat-clear-btn').addEventListener('click', function (e) {
+      e.stopPropagation();
+      if (confirm('Are you sure you want to clear the conversation?')) {
+        clearChat();
       }
     });
 
@@ -369,7 +765,7 @@
       btn.addEventListener('click', function () { sendMsg(btn.dataset.msg); });
     });
 
-    setTimeout(function () { if (!chatBox.classList.contains('open')) notif.style.display = 'block'; }, 4000);
+    setTimeout(function () { if (!chatBox.classList.contains('open')) notif.style.display = 'block'; }, 5000);
   }
 
   /* ══════════════════════════════════════════════════════════
@@ -405,8 +801,7 @@
     function updateZoom() {
       if (!canvas) return;
       canvas.style.transform = 'scale(' + zoomLevel + ')';
-      // Sync protection div size with canvas
-      setTimeout(function() {
+      setTimeout(function () {
         if (prot && canvas) {
           prot.style.width = (canvas.offsetWidth * zoomLevel) + 'px';
           prot.style.height = (canvas.offsetHeight * zoomLevel) + 'px';
@@ -417,18 +812,17 @@
     function drawImageToCanvas(src) {
       var imgObj = new Image();
       imgObj.crossOrigin = "anonymous";
-      imgObj.onload = function() {
+      imgObj.onload = function () {
         canvas.width = imgObj.width;
         canvas.height = imgObj.height;
         ctx.clearRect(0, 0, canvas.width, canvas.height);
         ctx.drawImage(imgObj, 0, 0);
-        
-        // Add a subtle watermark
+
         ctx.font = "bold " + (canvas.width / 20) + "px Arial";
         ctx.fillStyle = "rgba(255, 255, 255, 0.15)";
         ctx.textAlign = "center";
         ctx.fillText("SOS TECHNICAL TRAINING INSTITUTE - PRIVACY PROTECTED", canvas.width / 2, canvas.height / 2);
-        
+
         currentImg = imgObj;
         updateZoom();
       };
@@ -437,14 +831,10 @@
 
     function preventDownload(e) {
       if (!overlay.classList.contains('open')) return;
-      
-      // Prevent Print (Ctrl+P), Save (Ctrl+S), Source (Ctrl+U)
       if (e.ctrlKey && (e.key === 'p' || e.key === 's' || e.key === 'u' || e.key === 'c')) {
         e.preventDefault();
         return false;
       }
-
-      // Prevent DevTools (F12, Ctrl+Shift+I, Ctrl+Shift+J, Ctrl+Shift+C)
       if (e.key === 'F12' || (e.ctrlKey && e.shiftKey && (e.key === 'I' || e.key === 'J' || e.key === 'C' || e.key === 'i' || e.key === 'j' || e.key === 'c'))) {
         e.preventDefault();
         return false;
@@ -457,7 +847,7 @@
         zoomLevel = 1;
         drawImageToCanvas(btn.dataset.certificate);
         overlay.classList.add('open');
-        document.body.style.overflow = 'hidden'; // Lock scroll
+        document.body.style.overflow = 'hidden';
         window.addEventListener('keydown', preventDownload);
       }
     });
@@ -466,8 +856,7 @@
       overlay.classList.remove('open');
       document.body.style.overflow = '';
       window.removeEventListener('keydown', preventDownload);
-      // Clear canvas memory
-      setTimeout(function() { 
+      setTimeout(function () {
         if (ctx) ctx.clearRect(0, 0, canvas.width, canvas.height);
         currentImg = null;
       }, 400);
@@ -478,22 +867,20 @@
       if (e.target === overlay) close();
     });
 
-    // Zoom Controls
-    document.getElementById('cert-zoom-in').addEventListener('click', function(e) {
+    document.getElementById('cert-zoom-in').addEventListener('click', function (e) {
       e.stopPropagation();
       if (zoomLevel < 3) { zoomLevel += 0.2; updateZoom(); }
     });
-    document.getElementById('cert-zoom-out').addEventListener('click', function(e) {
+    document.getElementById('cert-zoom-out').addEventListener('click', function (e) {
       e.stopPropagation();
       if (zoomLevel > 0.6) { zoomLevel -= 0.2; updateZoom(); }
     });
-    document.getElementById('cert-zoom-reset').addEventListener('click', function(e) {
+    document.getElementById('cert-zoom-reset').addEventListener('click', function (e) {
       e.stopPropagation();
       zoomLevel = 1;
       updateZoom();
     });
   }
-
 
   /* ══════════════════════════════════════════════════════════
      8. TYPING EFFECT
@@ -513,7 +900,8 @@
       'Mobile Phone Repairing',
       'Advance Welding',
       'Machinist / Turner',
-      'English Language & Communication Skills'
+      'English Language Course',
+      'Digital Marketing'
     ];
     var pi = 0, ci = 0, deleting = false;
 
@@ -577,7 +965,7 @@
         return m + ':' + (sec < 10 ? '0' : '') + sec;
       }
 
-      video.addEventListener('loadedmetadata', function() {
+      video.addEventListener('loadedmetadata', function () {
         if (time) time.textContent = '0:00 / ' + fmt(video.duration);
         wrapper.classList.remove('loading');
       });
@@ -657,21 +1045,19 @@
         });
       }
 
-      video.addEventListener('play', function() {
+      video.addEventListener('play', function () {
         if (playBtn) playBtn.innerHTML = '<i class="fas fa-pause"></i>';
       });
-      video.addEventListener('pause', function() {
+      video.addEventListener('pause', function () {
         if (playBtn) playBtn.innerHTML = '<i class="fas fa-play"></i>';
       });
 
       video.addEventListener('volumechange', updateMuteIcon);
 
-      // Initial sync for autoplay/muted states
       updateMuteIcon();
       if (volumeSlider) volumeSlider.value = video.muted ? 0 : video.volume;
       if (!video.paused && playBtn) playBtn.innerHTML = '<i class="fas fa-pause"></i>';
 
-      // If already loaded or no preload="none", remove loading class
       if (video.readyState >= 1) {
         if (time) time.textContent = fmt(video.currentTime) + ' / ' + fmt(video.duration);
         wrapper.classList.remove('loading');
@@ -693,7 +1079,6 @@
     ].join('');
     document.body.appendChild(loader);
 
-    // Safety timeout to hide if components take too long
     setTimeout(hidePreloader, 4000);
   }
 
@@ -705,11 +1090,9 @@
     }
   }
 
-
   /* ══════════════════════════════════════════════════════════
      INIT
   ══════════════════════════════════════════════════════════ */
-  // Apply theme immediately to prevent flash
   (function () {
     var saved = localStorage.getItem('sostti-theme');
     if (saved === 'dark' || (!saved && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
@@ -729,12 +1112,8 @@
       initTyping();
       initCourseFilter();
       initVideo();
-      // Fire event so ticker + nested dropdown inits can run
-      // (mobile nav, ticker, and nested dropdowns are all initialized
-      //  by their own IIFEs listening to this event below)
       document.dispatchEvent(new CustomEvent('sostti:headerLoaded'));
 
-      // ── Header scroll effect ────────────────────────────────
       var hdr = document.getElementById('site-header');
       if (hdr) {
         window.addEventListener('scroll', function () {
@@ -742,18 +1121,15 @@
         }, { passive: true });
       }
 
-      // ── Active nav link highlighting ────────────────────────
       var currentPath = window.location.pathname;
       document.querySelectorAll('.nav-links a[href]').forEach(function (a) {
         var href = a.getAttribute('href');
-        // Check if link matches current page (handling relative prefix)
         if (href) {
           var normalizedHref = href;
           if (prefix && href.indexOf(prefix) === 0) {
             normalizedHref = href.substring(prefix.length);
           }
-          
-          // Normalize paths for comparison by stripping .html and trailing slashes
+
           var basePath = currentPath.replace(/\/$/, '').replace(/\.html$/, '');
           var baseHref = normalizedHref.split('?')[0].replace(/\/$/, '').replace(/\.html$/, '');
 
@@ -763,14 +1139,12 @@
             a.classList.add('active');
           }
 
-          // ── Parent Dropdown Handling ────────────────────────
           if (a.classList.contains('active')) {
             var dropdown = a.closest('.dropdown');
             if (dropdown) {
               var trigger = dropdown.querySelector('a[role="button"]');
               if (trigger) trigger.classList.add('active');
             }
-            // Handle nested items (like Computer/Technical courses)
             var nested = a.closest('.nested-dropdown-content');
             if (nested) {
               var nestedTrigger = nested.previousElementSibling;
@@ -779,7 +1153,6 @@
           }
         }
       });
-      // ── Hide preloader ──
       setTimeout(hidePreloader, 350);
     });
     loadHTML('#footer-container', prefix + 'components/footer.html', prefix);
@@ -801,7 +1174,6 @@
     var closeBtn = document.getElementById('tickerClose');
     if (!ticker) return;
 
-    /* Measure actual header height and set CSS var + body padding */
     function setOffset() {
       var hdr = document.getElementById('site-header');
       var h = hdr ? hdr.offsetHeight : 70;
@@ -814,7 +1186,6 @@
     if (closeBtn) {
       closeBtn.addEventListener('click', function () {
         ticker.classList.add('ticker-hidden');
-        /* Recalculate offset after ticker removed */
         setTimeout(setOffset, 50);
       });
     }
@@ -825,7 +1196,7 @@
 })();
 
 /* ══════════════════════════════════════════════════════════
-   MOBILE NAV — hamburger + top-level dropdowns
+   MOBILE NAV
 ══════════════════════════════════════════════════════════ */
 (function () {
   function initMobileNav() {
@@ -834,7 +1205,6 @@
     var overlay = document.getElementById('nav-overlay');
     if (!menuBtn || !navLinks) return;
 
-    /* ── Hamburger toggle ── */
     menuBtn.addEventListener('click', function (e) {
       e.stopPropagation();
       var isOpen = navLinks.classList.toggle('open');
@@ -845,15 +1215,13 @@
         : '<i class="fas fa-bars"  aria-hidden="true"></i>';
     });
 
-    /* ── Top-level dropdown toggles (mobile only) ── */
     document.querySelectorAll('.nav-links .dropdown > a[role="button"]').forEach(function (a) {
       a.addEventListener('click', function (e) {
-        if (window.innerWidth > 1024) return; // desktop: CSS hover handles it
+        if (window.innerWidth > 1024) return;
         e.preventDefault();
         e.stopPropagation();
         var li = a.closest('.dropdown');
         var wasOpen = li.classList.contains('open');
-        /* Close all other top-level dropdowns */
         document.querySelectorAll('.nav-links .dropdown.open').forEach(function (d) {
           d.classList.remove('open');
           var chevron = d.querySelector('.fa-chevron-down');
@@ -867,7 +1235,6 @@
       });
     });
 
-    /* ── Close nav when a real link is tapped ── */
     navLinks.querySelectorAll('a[href]').forEach(function (link) {
       link.addEventListener('click', function () {
         navLinks.classList.remove('open');
@@ -877,7 +1244,6 @@
       });
     });
 
-    /* ── Close nav on overlay/outside tap ── */
     function closeNav() {
       navLinks.classList.remove('open');
       if (overlay) overlay.classList.remove('open');
@@ -919,7 +1285,7 @@
 })();
 
 /* ══════════════════════════════════════════════════════════
-   MOBILE NAV PANEL — keep its top in sync with header height
+   MOBILE NAV PANEL
 ══════════════════════════════════════════════════════════ */
 (function () {
   function syncNavTop() {
@@ -933,7 +1299,6 @@
   document.addEventListener('sostti:headerLoaded', function () {
     syncNavTop();
     window.addEventListener('resize', syncNavTop, { passive: true });
-    /* Also update when ticker is closed */
     var closeBtn = document.getElementById('tickerClose');
     if (closeBtn) closeBtn.addEventListener('click', function () { setTimeout(syncNavTop, 60); });
   });

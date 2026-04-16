@@ -107,3 +107,32 @@ AddDefaultCharset UTF-8
 # 5. ERROR PAGES
 # ------------------------------------------------------------
 ErrorDocument 404 /index.html
+
+
+# 6. CHATBOT PROXY PROTECTION
+# ------------------------------------------------------------
+# Prevent search engines from indexing the proxy script & disable caching
+<Files "chat_proxy.php">
+    Header set X-Robots-Tag "noindex, nofollow"
+    Header set Cache-Control "no-store, no-cache, must-revalidate, max-age=0"
+    Header set Pragma "no-cache"
+    Header set Expires "Wed, 11 Jan 1984 05:00:00 GMT"
+</Files>
+
+
+# Restrict access to chat_proxy.php to your site only (same-origin check)
+<IfModule mod_rewrite.c>
+    # Only allow if Referer contains sostti.org (any protocol/subdomain)
+    # OR if the Referer is completely empty (some privacy browsers)
+    RewriteCond %{HTTP_REFERER} !^$
+    RewriteCond %{HTTP_REFERER} !^https?://([^/]+\.)?sostti\.org [NC]
+    RewriteCond %{REQUEST_URI} chat_proxy\.php [NC]
+    
+    # Skip block for local development
+    RewriteCond %{REMOTE_ADDR} !^127\.0\.0\.1$
+    RewriteCond %{REMOTE_ADDR} !^::1$
+    
+    RewriteRule .* - [F]
+</IfModule>
+
+
