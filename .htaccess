@@ -109,30 +109,50 @@ AddDefaultCharset UTF-8
 ErrorDocument 404 /index.html
 
 
-# 6. CHATBOT PROXY PROTECTION
+# 6. PHP SCRIPT HEADERS (SEO & Caching)
 # ------------------------------------------------------------
-# Prevent search engines from indexing the proxy script & disable caching
-<Files "chat_proxy.php">
+# Prevent search engines from indexing the helper scripts & disable caching
+<FilesMatch "^(chat_proxy|get_ads)\.php$">
     Header set X-Robots-Tag "noindex, nofollow"
     Header set Cache-Control "no-store, no-cache, must-revalidate, max-age=0"
     Header set Pragma "no-cache"
     Header set Expires "Wed, 11 Jan 1984 05:00:00 GMT"
-</Files>
+</FilesMatch>
 
-
-# Restrict access to chat_proxy.php to your site only (same-origin check)
+# 7. ASSET & PHP PROTECTION (Prevent Direct URL Access)
+# ------------------------------------------------------------
+# This prevents users from accessing internal scripts, components,
+# and advertisement images directly via the browser URL.
 <IfModule mod_rewrite.c>
-    # Only allow if Referer contains sostti.org (any protocol/subdomain)
-    # OR if the Referer is completely empty (some privacy browsers)
-    RewriteCond %{HTTP_REFERER} !^$
+    RewriteEngine On
+
+    # Identify the sensitive resources to protect
+    # 1. get_ads.php & chat_proxy.php
+    # 2. components/ (HTML templates)
+    # 3. js/ (Core logic)
+    # 4. assets/style.css
+    # 5. images/ads/ (Internal advertisements)
+    
+    RewriteCond %{REQUEST_URI} get_ads\.php [NC,OR]
+    RewriteCond %{REQUEST_URI} chat_proxy\.php [NC,OR]
+    RewriteCond %{REQUEST_URI} components/ [NC,OR]
+    RewriteCond %{REQUEST_URI} js/ [NC,OR]
+    RewriteCond %{REQUEST_URI} assets/style\.css [NC,OR]
+    RewriteCond %{REQUEST_URI} images/ads/ [NC,OR]
+    RewriteCond %{REQUEST_URI} videos/ [NC,OR]
+    RewriteCond %{REQUEST_URI} pages/ [NC]
+
+    # Block if Referer is NOT from sostti.org
+    # This specifically blocks direct URL typing (Empty Referer) 
+    # and hotlinking from other sites.
     RewriteCond %{HTTP_REFERER} !^https?://([^/]+\.)?sostti\.org [NC]
-    RewriteCond %{REQUEST_URI} chat_proxy\.php [NC]
     
     # Skip block for local development
     RewriteCond %{REMOTE_ADDR} !^127\.0\.0\.1$
     RewriteCond %{REMOTE_ADDR} !^::1$
     
-    RewriteRule .* - [F]
+    # 4. Forbidden!
+    RewriteRule .* - [F,L]
 </IfModule>
 
 
